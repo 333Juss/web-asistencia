@@ -1,4 +1,4 @@
-@import '../../../../styles/_variables';
+@use 'styles/variables' as *;
 
 .app-footer {
     background: white;

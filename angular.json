@@ -24,9 +24,15 @@
                 "input": "public"
               }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src"
+              ]
+            },
             "styles": [
-              "src/custom-theme.scss",
-              "src/styles.css"
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/leaflet/dist/leaflet.css",
+              "src/styles/styles.scss"
             ]
           },
           "configurations": {
@@ -82,11 +88,15 @@
                 "input": "public"
               }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src"
+              ]
+            },
             "styles": [
-              "src/styles.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles/styles.scss",
-              "node_modules/leaflet/dist/leaflet.css"
+              "node_modules/leaflet/dist/leaflet.css",
+              "src/styles/styles.scss"
             ]
           }
         }

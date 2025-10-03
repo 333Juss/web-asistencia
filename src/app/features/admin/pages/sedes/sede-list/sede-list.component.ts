@@ -18,6 +18,8 @@ import { debounceTime, Subject } from 'rxjs';
 import { FilterRequest, Sede } from '../../../../../components/models';
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 import { NotificationService } from '../../../../../core/services/notification.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
     selector: 'app-sede-list',
@@ -35,7 +37,9 @@ import { NotificationService } from '../../../../../core/services/notification.s
         MatMenuModule,
         MatChipsModule,
         MatTooltipModule,
-        MatCardModule
+        MatCardModule,
+        MatProgressSpinnerModule, // ← AGREGAR
+        MatDividerModule
     ],
     templateUrl: './sede-list.component.html',
     styleUrls: ['./sede-list.component.scss']

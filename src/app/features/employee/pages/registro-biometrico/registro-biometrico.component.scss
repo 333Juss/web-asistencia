@@ -1,4 +1,4 @@
-@import 'src/styles/variables';
+@use 'styles/variables' as *;
 
 .registro-container {
     max-width: 1000px;

@@ -19,7 +19,7 @@
                         </h2>
                         <p class="user-sede" *ngIf="colaborador?.sede">
                             <mat-icon>store</mat-icon>
-                            {{ colaborador.sede.nombre }}
+                            {{ colaborador?.sede?.nombre }}
                         </p>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="status-details">
                         <label>Horas Trabajadas</label>
-                        <p class="time">{{ asistenciaHoy?.horasTrabajadas ? asistenciaHoy.horasTrabajadas.toFixed(2) +
+                        <p class="time">{{ asistenciaHoy?.horasTrabajadas ? asistenciaHoy?.horasTrabajadas?.toFixed(2) +
                             'h' : '-' }}</p>
                     </div>
                 </div>
@@ -177,7 +177,7 @@
                     </div>
                     <div class="info-item" *ngIf="asistenciaHoy?.horasTrabajadas">
                         <label>Horas Trabajadas</label>
-                        <span>{{ asistenciaHoy.horasTrabajadas.toFixed(2) }}h</span>
+                        <span>{{ asistenciaHoy?.horasTrabajadas?.toFixed(2) }}h</span>
                     </div>
                 </div>
             </div>

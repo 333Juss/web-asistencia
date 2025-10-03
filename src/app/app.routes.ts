@@ -9,6 +9,12 @@ export const routes: Routes = [
         redirectTo: '/auth/login',
         pathMatch: 'full'
     },
+    // Rutas públicas (sin autenticación)
+    {
+        path: 'auth',
+        loadChildren: () => import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES)
+    },
+    // Rutas protegidas (con autenticación)
     {
         path: '',
         component: MainLayoutComponent,
@@ -22,10 +28,13 @@ export const routes: Routes = [
             },
             {
                 path: 'employee',
+                canActivate: [roleGuard],
+                data: { roles: ['EMPLOYEE'] },
                 loadChildren: () => import('./features/employee/employee.routes').then(m => m.EMPLOYEE_ROUTES)
-            },
+            }
         ]
     },
+    // Ruta wildcard al final
     {
         path: '**',
         redirectTo: '/auth/login'

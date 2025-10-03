@@ -1,4 +1,4 @@
-@import 'src/styles/variables';
+@use 'styles/variables' as *;
 
 .asistencia-container {
     max-width: 900px;

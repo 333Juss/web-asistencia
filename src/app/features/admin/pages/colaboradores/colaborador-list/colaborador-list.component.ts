@@ -18,6 +18,8 @@ import { debounceTime, Subject } from 'rxjs';
 import { ColaboradorListItem, FilterRequest } from '../../../../../components/models';
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 import { NotificationService } from '../../../../../core/services/notification.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // ← AGREGAR
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
     selector: 'app-colaborador-list',
@@ -35,7 +37,9 @@ import { NotificationService } from '../../../../../core/services/notification.s
         MatMenuModule,
         MatChipsModule,
         MatTooltipModule,
-        MatCardModule
+        MatCardModule,
+        MatProgressSpinnerModule, // ← AGREGAR
+        MatDividerModule
     ],
     templateUrl: './colaborador-list.component.html',
     styleUrls: ['./colaborador-list.component.scss']

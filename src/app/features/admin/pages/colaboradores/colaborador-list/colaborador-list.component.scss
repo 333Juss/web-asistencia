@@ -1,4 +1,4 @@
-@import 'src/styles/variables';
+@use 'styles/variables' as *;
 
 .list-container {
     .list-header {
@@ -133,7 +133,7 @@
 
                     &.chip-warning {
                         background: rgba($warning, 0.1);
-                        color: darken($warning, 20%);
+                        color: $warning-dark;
                     }
 
                     &.chip-error {

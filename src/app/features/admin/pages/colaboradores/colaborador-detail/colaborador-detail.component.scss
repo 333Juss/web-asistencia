@@ -1,4 +1,4 @@
-@import 'src/styles/variables';
+@use 'styles/variables' as *;
 
 .detail-container {
     max-width: 1200px;
@@ -81,7 +81,7 @@
 
                             &.chip-warning {
                                 background: rgba($warning, 0.1);
-                                color: darken($warning, 20%);
+                                color: $warning-dark;
                             }
 
                             &.chip-error {
