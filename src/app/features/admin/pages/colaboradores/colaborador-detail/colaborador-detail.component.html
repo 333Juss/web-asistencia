@@ -1,0 +1,132 @@
+<div class="detail-container">
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading-container">
+        <mat-spinner diameter="60"></mat-spinner>
+        <p>Cargando datos del colaborador...</p>
+    </div>
+
+    <!-- Content -->
+    <div *ngIf="!loading && colaborador" class="detail-content">
+
+        <!-- Header Card -->
+        <mat-card class="header-card">
+            <div class="header-top">
+                <button mat-icon-button (click)="goBack()">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+                <div class="header-actions">
+                    <button mat-stroked-button (click)="editColaborador()">
+                        <mat-icon>edit</mat-icon>
+                        Editar
+                    </button>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <div class="avatar">
+                    <mat-icon>account_circle</mat-icon>
+                </div>
+                <div class="profile-info">
+                    <h1 class="profile-name">{{ colaborador.nombres }} {{ colaborador.apellidos }}</h1>
+                    <p class="profile-role">{{ colaborador.cargo || 'Sin cargo asignado' }}</p>
+                    <div class="profile-badges">
+                        <mat-chip [class.chip-success]="colaborador.activo" [class.chip-error]="!colaborador.activo">
+                            {{ colaborador.activo ? 'Activo' : 'Inactivo' }}
+                        </mat-chip>
+                        <mat-chip [class.chip-success]="colaborador.tieneDatosBiometricos"
+                            [class.chip-warning]="!colaborador.tieneDatosBiometricos">
+                            <mat-icon>{{ colaborador.tieneDatosBiometricos ? 'verified' : 'pending' }}</mat-icon>
+                            {{ colaborador.tieneDatosBiometricos ? 'Biométrico registrado' : 'Biométrico pendiente' }}
+                        </mat-chip>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+
+        <!-- Tabs -->
+        <mat-tab-group class="detail-tabs">
+
+            <!-- Información Personal -->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>person</mat-icon>
+                    Información Personal
+                </ng-template>
+
+                <mat-card class="tab-card">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>DNI</label>
+                            <p>{{ colaborador.dni }}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Fecha de Nacimiento</label>
+                            <p>{{ formatDate(colaborador.fechaNacimiento) }}</p>
+                        </div>
+                        <div class="info-item" *ngIf="colaborador.fechaNacimiento">
+                            <label>Edad</label>
+                            <p>{{ calculateAge(colaborador.fechaNacimiento) }} años</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Email</label>
+                            <p>
+                                <a [href]="'mailto:' + colaborador.email">{{ colaborador.email }}</a>
+                            </p>
+                        </div>
+                        <div class="info-item" *ngIf="colaborador.telefono">
+                            <label>Teléfono</label>
+                            <p>
+                                <a [href]="'tel:' + colaborador.telefono">{{ colaborador.telefono }}</a>
+                            </p>
+                        </div>
+                    </div>
+                </mat-card>
+            </mat-tab>
+
+            <!-- Información Laboral -->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>work</mat-icon>
+                    Información Laboral
+                </ng-template>
+
+                <mat-card class="tab-card">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Cargo</label>
+                            <p>{{ colaborador.cargo || '-' }}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Sede</label>
+                            <p>{{ colaborador.sede?.nombre || '-' }}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Fecha de Ingreso</label>
+                            <p>{{ formatDate(colaborador.fechaIngreso) }}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Empresa</label>
+                            <p>{{ colaborador.empresa?.nombreComercial || '-' }}</p>
+                        </div>
+                    </div>
+                </mat-card>
+            </mat-tab>
+
+            <!-- Historial de Asistencia -->
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>history</mat-icon>
+                    Historial
+                </ng-template>
+
+                <mat-card class="tab-card">
+                    <div class="empty-state">
+                        <mat-icon>history</mat-icon>
+                        <p>Historial de asistencia próximamente</p>
+                    </div>
+                </mat-card>
+            </mat-tab>
+
+        </mat-tab-group>
+    </div>
+</div>

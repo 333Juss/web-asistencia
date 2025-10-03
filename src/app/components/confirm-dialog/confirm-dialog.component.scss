@@ -1,0 +1,52 @@
+.confirm-dialog {
+    .dialog-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+
+        mat-icon {
+            font-size: 32px;
+            width: 32px;
+            height: 32px;
+
+            &.icon-info {
+                color: #0984e3;
+            }
+
+            &.icon-warning {
+                color: #fdcb6e;
+            }
+
+            &.icon-danger {
+                color: #d63031;
+            }
+
+            &.icon-success {
+                color: #00b894;
+            }
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
+
+    .dialog-message {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.7);
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    mat-dialog-actions {
+        padding: 16px 0 0 0;
+        gap: 8px;
+
+        button {
+            min-width: 100px;
+        }
+    }
+}

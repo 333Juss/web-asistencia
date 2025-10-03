@@ -1,0 +1,184 @@
+@import 'src/styles/variables';
+
+.detail-container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 400px;
+        gap: 16px;
+
+        p {
+            color: $text-secondary;
+        }
+    }
+
+    .detail-content {
+        .header-card {
+            margin-bottom: 24px;
+
+            .header-top {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 24px;
+
+                .header-actions {
+                    display: flex;
+                    gap: 8px;
+                }
+            }
+
+            .profile-section {
+                display: flex;
+                gap: 24px;
+                align-items: flex-start;
+
+                .avatar {
+                    mat-icon {
+                        font-size: 80px;
+                        width: 80px;
+                        height: 80px;
+                        color: $primary-color;
+                    }
+                }
+
+                .profile-info {
+                    flex: 1;
+
+                    .profile-name {
+                        font-size: 28px;
+                        font-weight: 600;
+                        margin: 0 0 8px 0;
+                        color: $text-primary;
+                    }
+
+                    .profile-role {
+                        font-size: 16px;
+                        color: $text-secondary;
+                        margin: 0 0 16px 0;
+                    }
+
+                    .profile-badges {
+                        display: flex;
+                        gap: 8px;
+                        flex-wrap: wrap;
+
+                        mat-chip {
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 4px;
+                            font-weight: 500;
+
+                            &.chip-success {
+                                background: rgba($success, 0.1);
+                                color: $success;
+                            }
+
+                            &.chip-warning {
+                                background: rgba($warning, 0.1);
+                                color: darken($warning, 20%);
+                            }
+
+                            &.chip-error {
+                                background: rgba($error, 0.1);
+                                color: $error;
+                            }
+
+                            mat-icon {
+                                font-size: 18px;
+                                width: 18px;
+                                height: 18px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .detail-tabs {
+            .tab-card {
+                margin-top: 24px;
+
+                .info-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                    gap: 24px;
+
+                    .info-item {
+                        label {
+                            display: block;
+                            font-size: 12px;
+                            font-weight: 600;
+                            color: $text-secondary;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                            margin-bottom: 8px;
+                        }
+
+                        p {
+                            font-size: 16px;
+                            color: $text-primary;
+                            margin: 0;
+                            word-break: break-word;
+
+                            a {
+                                color: $primary-color;
+                                text-decoration: none;
+
+                                &:hover {
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .empty-state {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 48px;
+                    text-align: center;
+
+                    mat-icon {
+                        font-size: 64px;
+                        width: 64px;
+                        height: 64px;
+                        color: $text-disabled;
+                        margin-bottom: 16px;
+                    }
+
+                    p {
+                        color: $text-secondary;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive
+@media (max-width: $breakpoint-sm) {
+    .detail-container .detail-content {
+        .header-card .profile-section {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+
+            .profile-info .profile-badges {
+                justify-content: center;
+            }
+        }
+
+        .detail-tabs .tab-card .info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+}

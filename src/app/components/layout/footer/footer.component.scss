@@ -1,0 +1,53 @@
+@import '../../../../styles/_variables';
+
+.app-footer {
+    background: white;
+    padding: 0;
+
+    .footer-content {
+        padding: 16px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+
+        .footer-text {
+            margin: 0;
+            font-size: 13px;
+            color: $text-secondary;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .footer-link {
+                font-size: 13px;
+                color: $text-secondary;
+                text-decoration: none;
+                transition: color $transition-fast;
+
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+
+            .separator {
+                color: $text-disabled;
+            }
+        }
+    }
+}
+
+@media (max-width: $breakpoint-sm) {
+    .app-footer .footer-content {
+        flex-direction: column;
+        text-align: center;
+
+        .footer-links {
+            justify-content: center;
+        }
+    }
+}

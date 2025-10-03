@@ -1,0 +1,204 @@
+@import 'src/styles/variables';
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+
+    .login-card-wrapper {
+        width: 100%;
+        max-width: 450px;
+        z-index: 1;
+    }
+
+    .login-card {
+        padding: 40px;
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+
+            .logo {
+                margin-bottom: 24px;
+
+                .logo-text {
+                    font-size: 48px;
+                    font-weight: 700;
+                    margin: 0;
+                    color: $text-primary;
+
+                    .logo-h {
+                        color: $primary-color;
+                    }
+                }
+            }
+
+            .login-title {
+                font-size: 24px;
+                font-weight: 600;
+                margin: 0 0 8px 0;
+                color: $text-primary;
+            }
+
+            .login-subtitle {
+                font-size: 14px;
+                color: $text-secondary;
+                margin: 0;
+            }
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            .full-width {
+                width: 100%;
+            }
+
+            .remember-forgot {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: -8px 0 8px 0;
+
+                .forgot-password-link {
+                    font-size: 13px;
+                    padding: 0;
+                    min-width: auto;
+                }
+            }
+
+            .login-button {
+                height: 48px;
+                font-size: 16px;
+                font-weight: 600;
+                margin-top: 8px;
+            }
+
+            .divider {
+                position: relative;
+                text-align: center;
+                margin: 24px 0;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    right: 0;
+                    height: 1px;
+                    background: #e0e0e0;
+                }
+
+                span {
+                    position: relative;
+                    background: white;
+                    padding: 0 16px;
+                    color: $text-secondary;
+                    font-size: 14px;
+                }
+            }
+
+            .register-button {
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                border: 2px solid $primary-color;
+                color: $primary-color;
+                font-weight: 600;
+
+                &:hover {
+                    background: rgba($primary-color, 0.05);
+                }
+            }
+        }
+
+        .login-footer {
+            margin-top: 32px;
+            text-align: center;
+
+            .footer-text {
+                font-size: 12px;
+                color: $text-secondary;
+                line-height: 1.5;
+
+                .footer-link {
+                    color: $primary-color;
+                    text-decoration: none;
+                    font-weight: 500;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    .background-decoration {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+
+        .hand-icon {
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+
+            &.hand-1 {
+                top: 10%;
+                left: 10%;
+                animation-delay: 0s;
+            }
+
+            &.hand-2 {
+                bottom: 10%;
+                right: 10%;
+                animation-delay: 3s;
+            }
+        }
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+// Responsive
+@media (max-width: $breakpoint-sm) {
+    .login-container {
+        padding: 16px;
+
+        .login-card {
+            padding: 24px;
+
+            .login-header .logo .logo-text {
+                font-size: 36px;
+            }
+        }
+
+        .background-decoration .hand-icon {
+            font-size: 80px;
+        }
+    }
+}

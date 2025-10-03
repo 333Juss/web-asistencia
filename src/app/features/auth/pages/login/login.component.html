@@ -1,0 +1,88 @@
+<div class="login-container">
+    <div class="login-card-wrapper">
+        <mat-card class="login-card">
+            <!-- Logo y título -->
+            <div class="login-header">
+                <div class="logo">
+                    <h1 class="logo-text">
+                        <span class="logo-h">H</span>ERE
+                    </h1>
+                </div>
+                <h2 class="login-title">Iniciar sesión</h2>
+                <p class="login-subtitle">Elige como te gustaría iniciar sesión</p>
+            </div>
+
+            <!-- Formulario -->
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <!-- Usuario -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Usuario</mat-label>
+                    <input matInput formControlName="username" placeholder="Ingresa tu usuario" autocomplete="username">
+                    <mat-icon matPrefix>person</mat-icon>
+                    <mat-error *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                        {{ getErrorMessage('username') }}
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Contraseña -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
+                        placeholder="Ingresa tu contraseña" autocomplete="current-password">
+                    <mat-icon matPrefix>lock</mat-icon>
+                    <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                        {{ getErrorMessage('password') }}
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Recordarme -->
+                <div class="remember-forgot">
+                    <mat-checkbox formControlName="rememberMe" color="primary">
+                        Recordarme
+                    </mat-checkbox>
+                    <button type="button" mat-button color="primary" class="forgot-password-link"
+                        (click)="goToForgotPassword()">
+                        ¿Olvidaste tu contraseña?
+                    </button>
+                </div>
+
+                <!-- Botón de submit -->
+                <button mat-raised-button color="primary" type="submit" class="login-button full-width"
+                    [disabled]="loading">
+                    <span *ngIf="!loading">Iniciar sesión</span>
+                    <span *ngIf="loading">Iniciando sesión...</span>
+                </button>
+
+                <!-- Divider -->
+                <div class="divider">
+                    <span>o</span>
+                </div>
+
+                <!-- Botón de crear cuenta -->
+                <button mat-stroked-button type="button" class="register-button full-width" (click)="goToRegister()">
+                    <mat-icon>business</mat-icon>
+                    Escribe tu empresa
+                </button>
+            </form>
+
+            <!-- Footer del card -->
+            <div class="login-footer">
+                <p class="footer-text">
+                    Al continuar, aceptas nuestros
+                    <a href="#" class="footer-link">Términos de servicio</a> y
+                    <a href="#" class="footer-link">Política de privacidad</a>
+                </p>
+            </div>
+        </mat-card>
+    </div>
+
+    <!-- Decoración de fondo -->
+    <div class="background-decoration">
+        <div class="hand-icon hand-1">👋</div>
+        <div class="hand-icon hand-2">✋</div>
+    </div>
+</div>

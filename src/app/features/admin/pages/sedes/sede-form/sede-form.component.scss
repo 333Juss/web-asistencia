@@ -1,0 +1,225 @@
+@import 'src/styles/variables';
+
+.form-container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .form-card {
+        mat-card-header {
+            padding: 24px 24px 0 24px;
+            margin-bottom: 24px;
+
+            .header-content {
+                display: flex;
+                align-items: flex-start;
+                gap: 16px;
+                width: 100%;
+
+                .header-title {
+                    flex: 1;
+
+                    mat-card-title {
+                        font-size: 24px;
+                        font-weight: 600;
+                        margin-bottom: 8px;
+                    }
+
+                    mat-card-subtitle {
+                        font-size: 14px;
+                        color: $text-secondary;
+                    }
+                }
+            }
+        }
+
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px;
+            gap: 16px;
+
+            p {
+                color: $text-secondary;
+            }
+        }
+
+        mat-card-content {
+            padding: 24px;
+
+            .section {
+                margin-bottom: 32px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .section-title {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: $primary-color;
+                    margin: 0 0 8px 0;
+                    padding-bottom: 8px;
+                    border-bottom: 2px solid rgba($primary-color, 0.2);
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    mat-icon {
+                        font-size: 20px;
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+
+                .section-description {
+                    color: $text-secondary;
+                    font-size: 14px;
+                    margin: 12px 0 24px 0;
+                    line-height: 1.5;
+                }
+
+                .form-row {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 16px;
+                    margin-bottom: 16px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    .form-field {
+                        width: 100%;
+
+                        &.full-width {
+                            grid-column: span 3;
+                        }
+                    }
+                }
+
+                .radio-control {
+                    margin-bottom: 24px;
+                    padding: 16px;
+                    background: rgba($primary-color, 0.05);
+                    border-radius: 8px;
+
+                    .radio-label {
+                        display: block;
+                        font-size: 14px;
+                        color: $text-primary;
+                        margin-bottom: 12px;
+
+                        strong {
+                            color: $primary-color;
+                            font-size: 16px;
+                        }
+                    }
+
+                    .radio-slider {
+                        width: 100%;
+                    }
+
+                    .radio-hint {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 8px;
+                        font-size: 12px;
+                        color: $text-secondary;
+                    }
+                }
+
+                .map-wrapper {
+                    margin-bottom: 16px;
+                }
+
+                .coordinates-info {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 16px;
+                    padding: 16px;
+                    background: $background-light;
+                    border-radius: 8px;
+
+                    .info-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+
+                        mat-icon {
+                            color: $primary-color;
+                            font-size: 24px;
+                            width: 24px;
+                            height: 24px;
+                        }
+
+                        div {
+                            flex: 1;
+
+                            label {
+                                display: block;
+                                font-size: 12px;
+                                color: $text-secondary;
+                                margin-bottom: 4px;
+                            }
+
+                            span {
+                                display: block;
+                                font-size: 16px;
+                                font-weight: 600;
+                                color: $text-primary;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .form-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 12px;
+                margin-top: 32px;
+                padding-top: 24px;
+                border-top: 1px solid #e0e0e0;
+
+                button {
+                    min-width: 120px;
+                }
+            }
+        }
+    }
+}
+
+// Responsive
+@media (max-width: $breakpoint-md) {
+    .form-container .form-card mat-card-content .section {
+        .form-row {
+            grid-template-columns: 1fr;
+
+            .form-field.full-width {
+                grid-column: span 1;
+            }
+        }
+
+        .coordinates-info {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+@media (max-width: $breakpoint-sm) {
+    .form-container .form-card mat-card-content .section .coordinates-info {
+        .info-item {
+            mat-icon {
+                font-size: 20px;
+                width: 20px;
+                height: 20px;
+            }
+
+            div span {
+                font-size: 14px;
+            }
+        }
+    }
+}

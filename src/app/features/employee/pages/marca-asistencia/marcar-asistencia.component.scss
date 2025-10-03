@@ -1,0 +1,391 @@
+@import 'src/styles/variables';
+
+.asistencia-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px;
+
+    .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 400px;
+        gap: 16px;
+
+        p {
+            color: $text-secondary;
+            font-size: 16px;
+        }
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        .header-card {
+            .header-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
+
+                .user-info {
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+
+                    .user-avatar {
+                        font-size: 64px;
+                        width: 64px;
+                        height: 64px;
+                        color: $primary-color;
+                    }
+
+                    .user-details {
+                        .user-name {
+                            font-size: 24px;
+                            font-weight: 600;
+                            margin: 0 0 8px 0;
+                            color: $text-primary;
+                        }
+
+                        .user-sede {
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            margin: 0;
+                            color: $text-secondary;
+                            font-size: 14px;
+
+                            mat-icon {
+                                font-size: 18px;
+                                width: 18px;
+                                height: 18px;
+                            }
+                        }
+                    }
+                }
+
+                .historial-button {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+            }
+        }
+
+        .status-card {
+            .card-title {
+                font-size: 18px;
+                font-weight: 600;
+                margin: 0 0 16px 0;
+                color: $text-primary;
+            }
+
+            .status-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px;
+                margin-top: 24px;
+
+                .status-item {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 12px;
+
+                    .status-icon {
+                        width: 56px;
+                        height: 56px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: $background-light;
+
+                        mat-icon {
+                            font-size: 28px;
+                            width: 28px;
+                            height: 28px;
+                            color: $text-secondary;
+                        }
+
+                        &.entrada {
+                            background: rgba($success, 0.1);
+
+                            mat-icon {
+                                color: $success;
+                            }
+                        }
+
+                        &.salida {
+                            background: rgba($info, 0.1);
+
+                            mat-icon {
+                                color: $info;
+                            }
+                        }
+
+                        &.horas {
+                            background: rgba($primary-color, 0.1);
+
+                            mat-icon {
+                                color: $primary-color;
+                            }
+                        }
+
+                        &.estado-activo {
+                            background: rgba($warning, 0.1);
+
+                            mat-icon {
+                                color: $warning;
+                            }
+                        }
+
+                        &.estado-completo {
+                            background: rgba($success, 0.1);
+
+                            mat-icon {
+                                color: $success;
+                            }
+                        }
+                    }
+
+                    .status-details {
+                        text-align: center;
+
+                        label {
+                            display: block;
+                            font-size: 12px;
+                            color: $text-secondary;
+                            margin-bottom: 4px;
+                        }
+
+                        .time {
+                            font-size: 20px;
+                            font-weight: 600;
+                            margin: 0;
+                            color: $text-primary;
+                        }
+                    }
+                }
+            }
+        }
+
+        .action-card {
+            .card-title {
+                font-size: 18px;
+                font-weight: 600;
+                margin: 0 0 16px 0;
+                color: $text-primary;
+            }
+
+            .action-buttons {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+                margin-top: 24px;
+
+                .action-button {
+                    height: 120px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    font-size: 16px;
+                    font-weight: 600;
+
+                    mat-icon {
+                        font-size: 48px;
+                        width: 48px;
+                        height: 48px;
+                    }
+                }
+            }
+
+            .action-info {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                padding: 24px;
+                background: rgba($info, 0.1);
+                border-radius: 8px;
+                margin-top: 24px;
+
+                mat-icon {
+                    color: $info;
+                }
+
+                p {
+                    margin: 0;
+                    color: $text-secondary;
+                }
+            }
+        }
+
+        .verification-card {
+            .step-content {
+                padding: 24px;
+
+                .step-header {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 16px;
+                    margin-bottom: 24px;
+
+                    .step-icon {
+                        font-size: 80px;
+                        width: 80px;
+                        height: 80px;
+
+                        &.success {
+                            color: $success;
+                        }
+                    }
+
+                    h3 {
+                        font-size: 24px;
+                        font-weight: 600;
+                        margin: 0;
+                        color: $text-primary;
+                    }
+
+                    p {
+                        margin: 0;
+                        color: $text-secondary;
+                        text-align: center;
+
+                        &.success-text {
+                            color: $success;
+                            font-weight: 500;
+                        }
+                    }
+                }
+
+                .camera-section {
+                    margin-top: 24px;
+
+                    h4 {
+                        font-size: 16px;
+                        font-weight: 600;
+                        margin: 0 0 8px 0;
+                        color: $text-primary;
+                    }
+
+                    .instruction {
+                        font-size: 14px;
+                        color: $text-secondary;
+                        margin: 0 0 16px 0;
+                    }
+
+                    .capture-actions {
+                        display: flex;
+                        justify-content: center;
+                        gap: 12px;
+                        margin-top: 16px;
+                    }
+                }
+
+                .completion-info {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 24px;
+                    margin-top: 24px;
+                    padding: 24px;
+                    background: $background-light;
+                    border-radius: 8px;
+
+                    .info-item {
+                        text-align: center;
+
+                        label {
+                            display: block;
+                            font-size: 12px;
+                            color: $text-secondary;
+                            margin-bottom: 8px;
+                        }
+
+                        span {
+                            display: block;
+                            font-size: 20px;
+                            font-weight: 600;
+                            color: $primary-color;
+                        }
+                    }
+                }
+            }
+        }
+
+        .tips-card {
+            background: rgba($warning, 0.05);
+            border-left: 4px solid $warning;
+
+            h4 {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 16px;
+                font-weight: 600;
+                margin: 0 0 12px 0;
+                color: $text-primary;
+
+                mat-icon {
+                    color: $warning;
+                }
+            }
+
+            ul {
+                margin: 0;
+                padding-left: 24px;
+
+                li {
+                    font-size: 14px;
+                    color: $text-secondary;
+                    line-height: 1.8;
+                }
+            }
+        }
+    }
+}
+
+// Responsive
+@media (max-width: $breakpoint-md) {
+    .asistencia-container .content {
+        .status-card .status-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .action-card .action-buttons {
+            grid-template-columns: 1fr;
+        }
+
+        .verification-card .step-content .completion-info {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+@media (max-width: $breakpoint-sm) {
+    .asistencia-container {
+        padding: 16px;
+
+        .content {
+            .header-card .header-content {
+                flex-direction: column;
+                align-items: stretch;
+
+                .historial-button {
+                    width: 100%;
+                }
+            }
+
+            .status-card .status-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+}

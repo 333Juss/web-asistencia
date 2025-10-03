@@ -1,0 +1,91 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// Define la paleta primaria (violeta)
+$here-primary: mat.define-palette((50: #f3f0fe,
+            100: #e1dafc,
+            200: #cdc1fb,
+            300: #b9a8f9,
+            400: #aa95f7,
+            500: #6C5CE7,
+            600: #5849C4,
+            700: #4839A1,
+            800: #382B7E,
+            900: #2B2062,
+            A100: #e1dafc,
+            A200: #b9a8f9,
+            A400: #6C5CE7,
+            A700: #4839A1,
+            contrast: (50: rgba(black, 0.87),
+                100: rgba(black, 0.87),
+                200: rgba(black, 0.87),
+                300: white,
+                400: white,
+                500: white,
+                600: white,
+                700: white,
+                800: white,
+                900: white,
+                A100: rgba(black, 0.87),
+                A200: rgba(black, 0.87),
+                A400: white,
+                A700: white,
+            )));
+
+// Define la paleta accent (rosa)
+$here-accent: mat.define-palette((50: #fef0f6,
+            100: #fdd9ea,
+            200: #fbb6d9,
+            300: #f993c8,
+            400: #f178ba,
+            500: #E84393,
+            600: #D63081,
+            700: #C21D6F,
+            800: #AE0A5D,
+            900: #9A004B,
+            A100: #fdd9ea,
+            A200: #f993c8,
+            A400: #E84393,
+            A700: #C21D6F,
+            contrast: (50: rgba(black, 0.87),
+                100: rgba(black, 0.87),
+                200: rgba(black, 0.87),
+                300: white,
+                400: white,
+                500: white,
+                600: white,
+                700: white,
+                800: white,
+                900: white,
+                A100: rgba(black, 0.87),
+                A200: rgba(black, 0.87),
+                A400: white,
+                A700: white,
+            )));
+
+// Define la paleta warn (rojo)
+$here-warn: mat.define-palette(mat.$red-palette);
+
+// Crear el tema
+$here-theme: mat.define-light-theme((color: (primary: $here-primary,
+                accent: $here-accent,
+                warn: $here-warn,
+            ),
+            typography: mat.define-typography-config($font-family: '"Roboto", "Helvetica Neue", sans-serif',
+            ),
+            density: 0,
+        ));
+
+// Aplicar el tema a todos los componentes de Angular Material
+@include mat.all-component-themes($here-theme);
+
+// Tema oscuro (opcional)
+.dark-theme {
+    $here-dark-theme: mat.define-dark-theme((color: (primary: $here-primary,
+                    accent: $here-accent,
+                    warn: $here-warn,
+                )));
+
+    @include mat.all-component-colors($here-dark-theme);
+}

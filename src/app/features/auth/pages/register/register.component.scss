@@ -1,0 +1,64 @@
+@import 'src/styles/variables';
+
+.register-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 24px;
+
+    .register-card {
+        width: 100%;
+        max-width: 700px;
+        padding: 32px;
+        border-radius: 16px;
+
+        .register-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+
+            .logo-text {
+                font-size: 32px;
+                font-weight: 700;
+                margin: 0;
+
+                .logo-h {
+                    color: $primary-color;
+                }
+            }
+        }
+
+        h2 {
+            margin: 0 0 8px 0;
+        }
+
+        .subtitle {
+            color: $text-secondary;
+            margin: 0 0 24px 0;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+
+            .full-width {
+                grid-column: span 2;
+            }
+        }
+
+        .stepper-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            margin-top: 16px;
+        }
+    }
+}

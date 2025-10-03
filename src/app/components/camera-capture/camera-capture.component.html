@@ -1,0 +1,74 @@
+<div class="camera-capture-container">
+    <!-- Video preview -->
+    <div class="video-container" *ngIf="cameraActive">
+        <video #videoElement autoplay playsinline [class.capturing]="isCapturing">
+        </video>
+
+        <!-- Countdown overlay -->
+        <div class="countdown-overlay" *ngIf="countdown > 0">
+            <span class="countdown-number">{{ countdown }}</span>
+        </div>
+
+        <!-- Guías para centrar el rostro -->
+        <div class="face-guide">
+            <div class="guide-circle"></div>
+        </div>
+    </div>
+
+    <!-- Canvas oculto para captura -->
+    <canvas #canvasElement style="display: none;"></canvas>
+
+    <!-- Error si no hay cámara -->
+    <div class="no-camera" *ngIf="!isCameraAvailable">
+        <mat-icon>videocam_off</mat-icon>
+        <p>La cámara no está disponible en este dispositivo</p>
+    </div>
+
+    <!-- Mensaje si cámara no activa -->
+    <div class="camera-inactive" *ngIf="isCameraAvailable && !cameraActive">
+        <mat-icon>videocam</mat-icon>
+        <p>Iniciando cámara...</p>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-container" *ngIf="cameraActive">
+        <mat-progress-bar mode="determinate" [value]="captureProgress" color="primary">
+        </mat-progress-bar>
+        <p class="progress-text">
+            {{ capturedImages.length }} de {{ maxImages }} fotos capturadas
+        </p>
+    </div>
+
+    <!-- Botones de control -->
+    <div class="controls" *ngIf="cameraActive">
+        <button mat-fab color="primary" (click)="capturePhoto()"
+            [disabled]="isCapturing || capturedImages.length >= maxImages" class="capture-button">
+            <mat-icon>camera_alt</mat-icon>
+        </button>
+
+        <button mat-button (click)="reset()" [disabled]="capturedImages.length === 0" class="reset-button">
+            <mat-icon>refresh</mat-icon>
+            Reiniciar
+        </button>
+    </div>
+
+    <!-- Preview de imágenes capturadas -->
+    <div class="captured-images" *ngIf="showPreview && capturedImages.length > 0">
+        <h3>Fotos capturadas</h3>
+        <div class="images-grid">
+            <div class="image-item" *ngFor="let image of capturedImages; let i = index">
+                <img [src]="image.imageBase64" [alt]="'Foto ' + (i + 1)">
+                <button mat-icon-button color="warn" (click)="removeImage(i)" class="remove-button">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <span class="image-number">{{ i + 1 }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instrucciones -->
+    <div class="instructions" *ngIf="cameraActive && capturedImages.length === 0">
+        <mat-icon>info</mat-icon>
+        <p>Centra tu rostro en el círculo y mantén buena iluminación</p>
+    </div>
+</div>

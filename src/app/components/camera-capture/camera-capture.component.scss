@@ -1,0 +1,226 @@
+.camera-capture-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4/3;
+        background: #000;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1); // Mirror effect
+
+            &.capturing {
+                animation: flash 0.5s;
+            }
+        }
+
+        .countdown-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+
+            .countdown-number {
+                font-size: 120px;
+                font-weight: bold;
+                color: white;
+                animation: pulse 1s infinite;
+            }
+        }
+
+        .face-guide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+
+            .guide-circle {
+                width: 60%;
+                height: 80%;
+                border: 3px solid rgba(108, 92, 231, 0.6);
+                border-radius: 50%;
+                box-shadow: 0 0 20px rgba(108, 92, 231, 0.4);
+            }
+        }
+    }
+
+    .no-camera,
+    .camera-inactive {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 48px;
+        background: #f5f5f5;
+        border-radius: 12px;
+        min-height: 300px;
+
+        mat-icon {
+            font-size: 64px;
+            width: 64px;
+            height: 64px;
+            color: #999;
+            margin-bottom: 16px;
+        }
+
+        p {
+            color: #666;
+            font-size: 16px;
+            text-align: center;
+        }
+    }
+
+    .progress-container {
+        .progress-text {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+    }
+
+    .controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+
+        .capture-button {
+            width: 64px;
+            height: 64px;
+
+            mat-icon {
+                font-size: 32px;
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        .reset-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    }
+
+    .captured-images {
+        h3 {
+            margin: 0 0 12px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+
+            .image-item {
+                position: relative;
+                aspect-ratio: 1;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transform: scaleX(-1);
+                }
+
+                .remove-button {
+                    position: absolute;
+                    top: 4px;
+                    right: 4px;
+                    background: rgba(0, 0, 0, 0.6);
+
+                    mat-icon {
+                        color: white;
+                    }
+                }
+
+                .image-number {
+                    position: absolute;
+                    bottom: 4px;
+                    left: 4px;
+                    background: rgba(108, 92, 231, 0.9);
+                    color: white;
+                    padding: 4px 8px;
+                    border-radius: 4px;
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .instructions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px;
+        background: #e8f4f8;
+        border-radius: 8px;
+        border-left: 4px solid #0984e3;
+
+        mat-icon {
+            color: #0984e3;
+        }
+
+        p {
+            margin: 0;
+            font-size: 14px;
+            color: #333;
+        }
+    }
+}
+
+@keyframes flash {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}

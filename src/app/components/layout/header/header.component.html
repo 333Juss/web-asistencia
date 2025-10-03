@@ -1,0 +1,111 @@
+<mat-toolbar color="primary" class="header-toolbar">
+    <div class="header-content">
+        <!-- Left section: Menu button + Logo -->
+        <div class="header-left">
+            <button mat-icon-button (click)="onToggleSidebar()" class="menu-button">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <a routerLink="/" class="logo-link">
+                <h1 class="logo-text">
+                    <span class="logo-h">H</span>ERE
+                </h1>
+            </a>
+        </div>
+
+        <!-- Right section: Actions + User menu -->
+        <div class="header-right">
+            <!-- Notificaciones -->
+            <button mat-icon-button class="notification-button" [matMenuTriggerFor]="notificationMenu">
+                <mat-icon [matBadge]="3" matBadgeColor="warn">notifications</mat-icon>
+            </button>
+
+            <!-- User menu -->
+            <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">
+                <div class="user-info" *ngIf="(currentUser$ | async) as user">
+                    <div class="user-avatar">
+                        <mat-icon>account_circle</mat-icon>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">{{ user.username }}</span>
+                        <span class="user-role">{{ getRolLabel(user.rol) }}</span>
+                    </div>
+                    <mat-icon class="dropdown-icon">arrow_drop_down</mat-icon>
+                </div>
+            </button>
+        </div>
+    </div>
+</mat-toolbar>
+
+<!-- Notification Menu -->
+<mat-menu #notificationMenu="matMenu" class="notification-menu">
+    <div class="menu-header">
+        <h3>Notificaciones</h3>
+    </div>
+    <mat-divider></mat-divider>
+
+    <button mat-menu-item class="notification-item">
+        <mat-icon color="primary">info</mat-icon>
+        <div class="notification-content">
+            <p class="notification-title">Nueva actualización disponible</p>
+            <span class="notification-time">Hace 5 minutos</span>
+        </div>
+    </button>
+
+    <button mat-menu-item class="notification-item">
+        <mat-icon color="accent">check_circle</mat-icon>
+        <div class="notification-content">
+            <p class="notification-title">Asistencia registrada correctamente</p>
+            <span class="notification-time">Hace 1 hora</span>
+        </div>
+    </button>
+
+    <button mat-menu-item class="notification-item">
+        <mat-icon color="warn">warning</mat-icon>
+        <div class="notification-content">
+            <p class="notification-title">Recordatorio: Actualiza tus datos</p>
+            <span class="notification-time">Hace 2 horas</span>
+        </div>
+    </button>
+
+    <mat-divider></mat-divider>
+    <button mat-menu-item class="view-all-button">
+        Ver todas las notificaciones
+    </button>
+</mat-menu>
+
+<!-- User Menu -->
+<mat-menu #userMenu="matMenu" class="user-menu">
+    <div class="user-menu-header" *ngIf="(currentColaborador$ | async) as colaborador">
+        <div class="user-menu-avatar">
+            <mat-icon>account_circle</mat-icon>
+        </div>
+        <div class="user-menu-info">
+            <p class="user-menu-name">{{ getNombreCompleto(colaborador) }}</p>
+            <p class="user-menu-email">{{ colaborador.email }}</p>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+
+    <button mat-menu-item routerLink="/profile">
+        <mat-icon>person</mat-icon>
+        <span>Mi perfil</span>
+    </button>
+
+    <button mat-menu-item routerLink="/settings">
+        <mat-icon>settings</mat-icon>
+        <span>Configuración</span>
+    </button>
+
+    <button mat-menu-item>
+        <mat-icon>help</mat-icon>
+        <span>Ayuda</span>
+    </button>
+
+    <mat-divider></mat-divider>
+
+    <button mat-menu-item (click)="logout()" class="logout-button">
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar sesión</span>
+    </button>
+</mat-menu>

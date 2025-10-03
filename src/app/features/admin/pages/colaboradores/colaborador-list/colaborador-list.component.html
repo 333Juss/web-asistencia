@@ -1,0 +1,171 @@
+<div class="list-container">
+    <!-- Header -->
+    <div class="list-header">
+        <div class="header-left">
+            <h2 class="page-title">
+                <mat-icon>people</mat-icon>
+                Colaboradores
+            </h2>
+            <p class="page-subtitle">Gestiona los colaboradores de tu empresa</p>
+        </div>
+        <div class="header-right">
+            <button mat-raised-button color="primary" (click)="addColaborador()">
+                <mat-icon>add</mat-icon>
+                Nuevo Colaborador
+            </button>
+        </div>
+    </div>
+
+    <!-- Filters Card -->
+    <mat-card class="filters-card">
+        <div class="filters-content">
+            <!-- Search -->
+            <mat-form-field appearance="outline" class="search-field">
+                <mat-label>Buscar</mat-label>
+                <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearch($event)"
+                    placeholder="DNI, nombre, email...">
+                <mat-icon matPrefix>search</mat-icon>
+                <button mat-icon-button matSuffix *ngIf="searchTerm" (click)="clearFilters()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <!-- Actions -->
+            <div class="filter-actions">
+                <button mat-stroked-button (click)="exportToExcel()" matTooltip="Exportar a Excel">
+                    <mat-icon>download</mat-icon>
+                    Exportar
+                </button>
+                <button mat-icon-button (click)="loadColaboradores()" matTooltip="Recargar">
+                    <mat-icon>refresh</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-card>
+
+    <!-- Table Card -->
+    <mat-card class="table-card">
+        <!-- Loading -->
+        <div *ngIf="loading" class="loading-overlay">
+            <mat-spinner diameter="40"></mat-spinner>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange()"
+                class="colaboradores-table">
+
+                <!-- DNI Column -->
+                <ng-container matColumnDef="dni">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+                    <td mat-cell *matCellDef="let colaborador">{{ colaborador.dni }}</td>
+                </ng-container>
+
+                <!-- Nombre Completo Column -->
+                <ng-container matColumnDef="nombreCompleto">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Completo</th>
+                    <td mat-cell *matCellDef="let colaborador">
+                        <div class="name-cell">
+                            <mat-icon class="avatar-icon">account_circle</mat-icon>
+                            <span class="name-text">{{ colaborador.nombreCompleto }}</span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Email Column -->
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                    <td mat-cell *matCellDef="let colaborador">{{ colaborador.email }}</td>
+                </ng-container>
+
+                <!-- Cargo Column -->
+                <ng-container matColumnDef="cargo">
+                    <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                    <td mat-cell *matCellDef="let colaborador">
+                        <span class="cargo-badge">{{ colaborador.cargo || '-' }}</span>
+                    </td>
+                </ng-container>
+
+                <!-- Sede Column -->
+                <ng-container matColumnDef="sede">
+                    <th mat-header-cell *matHeaderCellDef>Sede</th>
+                    <td mat-cell *matCellDef="let colaborador">{{ colaborador.sede || '-' }}</td>
+                </ng-container>
+
+                <!-- Biométrico Column -->
+                <ng-container matColumnDef="biometrico">
+                    <th mat-header-cell *matHeaderCellDef>Biométrico</th>
+                    <td mat-cell *matCellDef="let colaborador">
+                        <mat-chip [class.chip-success]="colaborador.tieneDatosBiometricos"
+                            [class.chip-warning]="!colaborador.tieneDatosBiometricos">
+                            <mat-icon>{{ colaborador.tieneDatosBiometricos ? 'check_circle' : 'pending' }}</mat-icon>
+                            {{ colaborador.tieneDatosBiometricos ? 'Registrado' : 'Pendiente' }}
+                        </mat-chip>
+                    </td>
+                </ng-container>
+
+                <!-- Estado Column -->
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef>Estado</th>
+                    <td mat-cell *matCellDef="let colaborador">
+                        <mat-chip [class.chip-success]="colaborador.activo" [class.chip-error]="!colaborador.activo">
+                            {{ colaborador.activo ? 'Activo' : 'Inactivo' }}
+                        </mat-chip>
+                    </td>
+                </ng-container>
+
+                <!-- Acciones Column -->
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                    <td mat-cell *matCellDef="let colaborador">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="viewColaborador(colaborador.id)">
+                                <mat-icon>visibility</mat-icon>
+                                <span>Ver detalle</span>
+                            </button>
+                            <button mat-menu-item (click)="editColaborador(colaborador.id)">
+                                <mat-icon>edit</mat-icon>
+                                <span>Editar</span>
+                            </button>
+                            <button mat-menu-item (click)="toggleStatus(colaborador)">
+                                <mat-icon>{{ colaborador.activo ? 'block' : 'check_circle' }}</mat-icon>
+                                <span>{{ colaborador.activo ? 'Desactivar' : 'Activar' }}</span>
+                            </button>
+                            <mat-divider></mat-divider>
+                            <button mat-menu-item (click)="deleteColaborador(colaborador)" class="delete-option">
+                                <mat-icon>delete</mat-icon>
+                                <span>Eliminar</span>
+                            </button>
+                        </mat-menu>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"
+                    (click)="viewColaborador(row.id)"></tr>
+
+                <!-- No data -->
+                <tr class="mat-row no-data-row" *matNoDataRow>
+                    <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                        <div class="no-data">
+                            <mat-icon>people_outline</mat-icon>
+                            <p>No se encontraron colaboradores</p>
+                            <button mat-stroked-button (click)="addColaborador()">
+                                <mat-icon>add</mat-icon>
+                                Agregar primer colaborador
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Paginator -->
+        <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 50]"
+            (page)="onPageChange($event)" showFirstLastButtons>
+        </mat-paginator>
+    </mat-card>
+</div>

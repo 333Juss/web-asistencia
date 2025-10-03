@@ -1,0 +1,75 @@
+// Colores principales del sistema HERE
+$primary-color: #6C5CE7;
+$primary-dark: #5849C4;
+$primary-light: #A29BFE;
+
+$accent-color: #E84393;
+$accent-dark: #D63081;
+$accent-light: #FD79A8;
+
+// Fondos
+$background-dark: #1A1A1A;
+$background-light: #F5F5F5;
+$background-card: #FFFFFF;
+$background-card-dark: #2D2D2D;
+
+// Textos
+$text-primary: #1A1A1A;
+$text-secondary: #666666;
+$text-disabled: #B8B8B8;
+$text-on-primary: #FFFFFF;
+$text-on-dark: #FFFFFF;
+
+// Estados
+$success: #00B894;
+$success-light: #55EFC4;
+$warning: #FDCB6E;
+$warning-light: #FEF3C7;
+$error: #D63031;
+$error-light: #FD79A8;
+$info: #0984E3;
+$info-light: #74B9FF;
+
+// Espaciado (múltiplos de 4px)
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+$spacing-xxxl: 64px;
+
+// Border radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+$border-radius-xxl: 24px;
+$border-radius-round: 50%;
+
+
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+$shadow-md: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
+$shadow-xl: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+
+
+$transition-fast: 150ms ease-in-out;
+$transition-normal: 300ms ease-in-out;
+$transition-slow: 500ms ease-in-out;
+
+
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 1024px;
+$breakpoint-lg: 1280px;
+$breakpoint-xl: 1536px;
+
+
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;

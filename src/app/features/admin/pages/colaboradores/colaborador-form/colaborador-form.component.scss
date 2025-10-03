@@ -1,0 +1,104 @@
+@import 'src/styles/variables';
+
+.form-container {
+    max-width: 900px;
+    margin: 0 auto;
+
+    .form-card {
+        mat-card-header {
+            padding: 24px 24px 0 24px;
+            margin-bottom: 24px;
+
+            .header-content {
+                display: flex;
+                align-items: flex-start;
+                gap: 16px;
+                width: 100%;
+
+                .header-title {
+                    flex: 1;
+
+                    mat-card-title {
+                        font-size: 24px;
+                        font-weight: 600;
+                        margin-bottom: 8px;
+                    }
+
+                    mat-card-subtitle {
+                        font-size: 14px;
+                        color: $text-secondary;
+                    }
+                }
+            }
+        }
+
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px;
+            gap: 16px;
+
+            p {
+                color: $text-secondary;
+            }
+        }
+
+        mat-card-content {
+            padding: 24px;
+
+            .section {
+                margin-bottom: 32px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .section-title {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: $primary-color;
+                    margin: 0 0 16px 0;
+                    padding-bottom: 8px;
+                    border-bottom: 2px solid rgba($primary-color, 0.2);
+                }
+
+                .form-row {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 16px;
+                    margin-bottom: 16px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    .form-field {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .form-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 12px;
+                margin-top: 32px;
+                padding-top: 24px;
+                border-top: 1px solid #e0e0e0;
+
+                button {
+                    min-width: 120px;
+                }
+            }
+        }
+    }
+}
+
+// Responsive
+@media (max-width: $breakpoint-sm) {
+    .form-container .form-card mat-card-content .section .form-row {
+        grid-template-columns: 1fr;
+    }
+}

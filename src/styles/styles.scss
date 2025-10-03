@@ -1,0 +1,310 @@
+@import 'variables';
+@import 'theme';
+
+// Reset básico
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+    background-color: $background-light;
+    color: $text-primary;
+}
+
+// Clases utilitarias de espaciado
+.mt-xs {
+    margin-top: $spacing-xs;
+}
+
+.mt-sm {
+    margin-top: $spacing-sm;
+}
+
+.mt-md {
+    margin-top: $spacing-md;
+}
+
+.mt-lg {
+    margin-top: $spacing-lg;
+}
+
+.mt-xl {
+    margin-top: $spacing-xl;
+}
+
+.mb-xs {
+    margin-bottom: $spacing-xs;
+}
+
+.mb-sm {
+    margin-bottom: $spacing-sm;
+}
+
+.mb-md {
+    margin-bottom: $spacing-md;
+}
+
+.mb-lg {
+    margin-bottom: $spacing-lg;
+}
+
+.mb-xl {
+    margin-bottom: $spacing-xl;
+}
+
+.pt-xs {
+    padding-top: $spacing-xs;
+}
+
+.pt-sm {
+    padding-top: $spacing-sm;
+}
+
+.pt-md {
+    padding-top: $spacing-md;
+}
+
+.pt-lg {
+    padding-top: $spacing-lg;
+}
+
+.pt-xl {
+    padding-top: $spacing-xl;
+}
+
+.pb-xs {
+    padding-bottom: $spacing-xs;
+}
+
+.pb-sm {
+    padding-bottom: $spacing-sm;
+}
+
+.pb-md {
+    padding-bottom: $spacing-md;
+}
+
+.pb-lg {
+    padding-bottom: $spacing-lg;
+}
+
+.pb-xl {
+    padding-bottom: $spacing-xl;
+}
+
+.p-md {
+    padding: $spacing-md;
+}
+
+.p-lg {
+    padding: $spacing-lg;
+}
+
+// Clases utilitarias de texto
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-primary {
+    color: $primary-color;
+}
+
+.text-accent {
+    color: $accent-color;
+}
+
+.text-success {
+    color: $success;
+}
+
+.text-warning {
+    color: $warning;
+}
+
+.text-error {
+    color: $error;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.font-normal {
+    font-weight: 400;
+}
+
+// Clases utilitarias de layout
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-end {
+    justify-content: flex-end;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.gap-sm {
+    gap: $spacing-sm;
+}
+
+.gap-md {
+    gap: $spacing-md;
+}
+
+.gap-lg {
+    gap: $spacing-lg;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+// Clases para el contenedor principal
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: $spacing-lg;
+}
+
+.container-fluid {
+    width: 100%;
+    padding: $spacing-lg;
+}
+
+// Estilos para cards
+.card-shadow {
+    box-shadow: $shadow-md;
+    transition: box-shadow $transition-normal;
+
+    &:hover {
+        box-shadow: $shadow-lg;
+    }
+}
+
+// Override de estilos de Angular Material
+.mat-mdc-form-field {
+    width: 100%;
+}
+
+.mat-mdc-card {
+    box-shadow: $shadow-md !important;
+}
+
+// Loading overlay
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: $z-index-modal;
+}
+
+// Scrollbar personalizado
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: $background-light;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $primary-light;
+    border-radius: $border-radius-lg;
+
+    &:hover {
+        background: $primary-color;
+    }
+}
+
+// Estilos para snackbars personalizados
+.success-snackbar {
+    .mdc-snackbar__surface {
+        background-color: $success !important;
+    }
+
+    .mat-mdc-snack-bar-label,
+    .mat-mdc-button {
+        color: white !important;
+    }
+}
+
+.error-snackbar {
+    .mdc-snackbar__surface {
+        background-color: $error !important;
+    }
+
+    .mat-mdc-snack-bar-label,
+    .mat-mdc-button {
+        color: white !important;
+    }
+}
+
+.warning-snackbar {
+    .mdc-snackbar__surface {
+        background-color: $warning !important;
+    }
+
+    .mat-mdc-snack-bar-label,
+    .mat-mdc-button {
+        color: $text-primary !important;
+    }
+}
+
+.info-snackbar {
+    .mdc-snackbar__surface {
+        background-color: $info !important;
+    }
+
+    .mat-mdc-snack-bar-label,
+    .mat-mdc-button {
+        color: white !important;
+    }
+}

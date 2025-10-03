@@ -1,0 +1,154 @@
+<div class="form-container">
+    <mat-card class="form-card">
+        <!-- Header -->
+        <mat-card-header>
+            <div class="header-content">
+                <button mat-icon-button (click)="goBack()">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+                <div class="header-title">
+                    <mat-card-title>
+                        {{ isEditMode ? 'Editar Colaborador' : 'Registrar Nuevo Colaborador' }}
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        {{ isEditMode ? 'Actualiza los datos del colaborador' : 'Completa los datos básicos del nuevo
+                        colaborador' }}
+                    </mat-card-subtitle>
+                </div>
+            </div>
+        </mat-card-header>
+
+        <!-- Loading -->
+        <div *ngIf="loading" class="loading-container">
+            <mat-spinner diameter="40"></mat-spinner>
+            <p>Cargando datos...</p>
+        </div>
+
+        <!-- Form -->
+        <mat-card-content *ngIf="!loading">
+            <form [formGroup]="colaboradorForm" (ngSubmit)="onSubmit()">
+
+                <!-- Datos Personales -->
+                <div class="section">
+                    <h3 class="section-title">Datos Personales</h3>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>DNI</mat-label>
+                            <input matInput formControlName="dni" placeholder="12345678" maxlength="8"
+                                [readonly]="isEditMode">
+                            <mat-icon matPrefix>badge</mat-icon>
+                            <mat-hint>8 dígitos</mat-hint>
+                            <mat-error>{{ getErrorMessage('dni') }}</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Nombres</mat-label>
+                            <input matInput formControlName="nombres" placeholder="Juan Carlos">
+                            <mat-icon matPrefix>person</mat-icon>
+                            <mat-error>{{ getErrorMessage('nombres') }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Apellidos</mat-label>
+                            <input matInput formControlName="apellidos" placeholder="Pérez García">
+                            <mat-icon matPrefix>person</mat-icon>
+                            <mat-error>{{ getErrorMessage('apellidos') }}</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Fecha de Nacimiento</mat-label>
+                            <input matInput [matDatepicker]="pickerNacimiento" formControlName="fechaNacimiento"
+                                placeholder="DD/MM/YYYY">
+                            <mat-datepicker-toggle matSuffix [for]="pickerNacimiento"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerNacimiento></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Contacto -->
+                <div class="section">
+                    <h3 class="section-title">Contacto</h3>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Correo Electrónico</mat-label>
+                            <input matInput type="email" formControlName="email" placeholder="juan@retail.com">
+                            <mat-icon matPrefix>email</mat-icon>
+                            <mat-error>{{ getErrorMessage('email') }}</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Teléfono</mat-label>
+                            <input matInput formControlName="telefono" placeholder="987654321" maxlength="9">
+                            <mat-icon matPrefix>phone</mat-icon>
+                            <mat-hint>9 dígitos</mat-hint>
+                            <mat-error>{{ getErrorMessage('telefono') }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Información Laboral -->
+                <div class="section">
+                    <h3 class="section-title">Información Laboral</h3>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Sede</mat-label>
+                            <mat-select formControlName="sedeId">
+                                <mat-option *ngFor="let sede of sedes" [value]="sede.id">
+                                    {{ sede.nombre }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matPrefix>store</mat-icon>
+                            <mat-error>{{ getErrorMessage('sedeId') }}</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Cargo</mat-label>
+                            <mat-select formControlName="cargo">
+                                <mat-option *ngFor="let cargo of cargos" [value]="cargo">
+                                    {{ cargo }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matPrefix>work</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Fecha de Ingreso</mat-label>
+                            <input matInput [matDatepicker]="pickerIngreso" formControlName="fechaIngreso"
+                                placeholder="DD/MM/YYYY">
+                            <mat-datepicker-toggle matSuffix [for]="pickerIngreso"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerIngreso></mat-datepicker>
+                            <mat-error>{{ getErrorMessage('fechaIngreso') }}</mat-error>
+                        </mat-form-field>
+
+                        <div class="form-field"></div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+                    <button mat-button type="button" (click)="goBack()" [disabled]="submitting">
+                        Cancelar
+                    </button>
+
+                    <button mat-button type="button" (click)="resetForm()" *ngIf="!isEditMode" [disabled]="submitting">
+                        Limpiar
+                    </button>
+
+                    <button mat-raised-button color="primary" type="submit"
+                        [disabled]="submitting || colaboradorForm.invalid">
+                        <mat-icon *ngIf="!submitting">save</mat-icon>
+                        <mat-spinner *ngIf="submitting" diameter="20"></mat-spinner>
+                        {{ submitting ? 'Guardando...' : (isEditMode ? 'Actualizar' : 'Registrar') }}
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

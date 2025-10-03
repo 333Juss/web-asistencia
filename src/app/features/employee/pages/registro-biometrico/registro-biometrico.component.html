@@ -1,0 +1,139 @@
+<div class="registro-container">
+    <mat-card class="registro-card">
+        <!-- Header -->
+        <div class="card-header">
+            <button mat-icon-button (click)="cancel()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <div class="header-info">
+                <h1 class="title">Registro Biométrico</h1>
+                <p class="subtitle" *ngIf="colaborador">
+                    {{ colaborador.nombres }} {{ colaborador.apellidos }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-section" *ngIf="currentStep === 1">
+            <mat-progress-bar mode="determinate" [value]="progress" color="primary">
+            </mat-progress-bar>
+            <p class="progress-text">
+                {{ capturedImages.length }} de {{ REQUIRED_IMAGES }} fotos capturadas
+            </p>
+        </div>
+
+        <!-- Stepper -->
+        <div class="stepper-content">
+
+            <!-- Step 0: Bienvenida -->
+            <div class="step-container" *ngIf="currentStep === 0">
+                <div class="step-content">
+                    <div class="step-icon">
+                        <mat-icon [class.active]="true">{{ instructions[0].icon }}</mat-icon>
+                    </div>
+                    <h2 class="step-title">{{ instructions[0].title }}</h2>
+                    <p class="step-description">{{ instructions[0].description }}</p>
+
+                    <div class="tips-container">
+                        <h3 class="tips-title">
+                            <mat-icon>lightbulb</mat-icon>
+                            Consejos importantes
+                        </h3>
+                        <mat-list class="tips-list">
+                            <mat-list-item *ngFor="let tip of instructions[0].tips">
+                                <mat-icon matListItemIcon>check_circle</mat-icon>
+                                <span matListItemTitle>{{ tip }}</span>
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+
+                    <div class="step-actions">
+                        <button mat-raised-button color="primary" (click)="nextStep()" class="action-button">
+                            Comenzar
+                            <mat-icon>arrow_forward</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Captura -->
+            <div class="step-container" *ngIf="currentStep === 1">
+                <div class="step-content capture-step">
+                    <h2 class="step-title">{{ instructions[1].title }}</h2>
+                    <p class="step-description">{{ instructions[1].description }}</p>
+
+                    <!-- Camera Component -->
+                    <div class="camera-section">
+                        <app-camera-capture [maxImages]="MAX_IMAGES" [showPreview]="true"
+                            (imagesCaptures)="onImagesCaptures($event)">
+                        </app-camera-capture>
+                    </div>
+
+                    <!-- Instructions -->
+                    <div class="capture-instructions">
+                        <div class="instruction-item" *ngFor="let tip of instructions[1].tips">
+                            <mat-icon>info</mat-icon>
+                            <span>{{ tip }}</span>
+                        </div>
+                    </div>
+
+                    <div class="step-actions">
+                        <button mat-button (click)="previousStep()">
+                            <mat-icon>arrow_back</mat-icon>
+                            Atrás
+                        </button>
+                        <button mat-raised-button color="primary" (click)="nextStep()" [disabled]="!canGoNext()"
+                            class="action-button">
+                            Continuar
+                            <mat-icon>arrow_forward</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Verificación -->
+            <div class="step-container" *ngIf="currentStep === 2">
+                <div class="step-content">
+                    <div class="step-icon">
+                        <mat-icon [class.active]="true">{{ instructions[2].icon }}</mat-icon>
+                    </div>
+                    <h2 class="step-title">{{ instructions[2].title }}</h2>
+                    <p class="step-description">{{ instructions[2].description }}</p>
+
+                    <!-- Preview Grid -->
+                    <div class="preview-grid">
+                        <div class="preview-item" *ngFor="let img of capturedImages">
+                            <img [src]="img.imageBase64" [alt]="'Foto ' + img.order">
+                            <span class="preview-number">{{ img.order }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Final Tips -->
+                    <div class="final-tips">
+                        <mat-icon>info</mat-icon>
+                        <p>Estas fotos se usarán para el reconocimiento facial. Asegúrate de que todas sean claras y
+                            muestren tu rostro completo.</p>
+                    </div>
+
+                    <div class="step-actions">
+                        <button mat-button (click)="previousStep()" [disabled]="submitting">
+                            <mat-icon>arrow_back</mat-icon>
+                            Atrás
+                        </button>
+                        <button mat-button (click)="restart()" [disabled]="submitting">
+                            <mat-icon>refresh</mat-icon>
+                            Reiniciar
+                        </button>
+                        <button mat-raised-button color="primary" (click)="submitImages()" [disabled]="submitting"
+                            class="action-button">
+                            <mat-icon *ngIf="!submitting">send</mat-icon>
+                            <mat-icon *ngIf="submitting" class="spinner">sync</mat-icon>
+                            {{ submitting ? 'Procesando...' : 'Enviar' }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </mat-card>
+</div>

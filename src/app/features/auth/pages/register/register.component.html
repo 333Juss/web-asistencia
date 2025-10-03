@@ -1,0 +1,93 @@
+<div class="register-container">
+    <mat-card class="register-card">
+        <div class="register-header">
+            <button mat-icon-button (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <h1 class="logo-text"><span class="logo-h">H</span>ERE</h1>
+        </div>
+
+        <h2>Registra tu empresa</h2>
+        <p class="subtitle">Completa los siguientes pasos</p>
+
+        <mat-stepper linear #stepper>
+            <!-- Step 1: Empresa -->
+            <mat-step [stepControl]="empresaForm">
+                <ng-template matStepLabel>Empresa</ng-template>
+                <form [formGroup]="empresaForm">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Nombre Comercial</mat-label>
+                        <input matInput formControlName="nombreComercial" required>
+                    </mat-form-field>
+                    <div class="stepper-buttons">
+                        <button mat-button matStepperNext>Continuar</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!-- Step 2: Contacto -->
+            <mat-step [stepControl]="contactoForm">
+                <ng-template matStepLabel>Contacto</ng-template>
+                <form [formGroup]="contactoForm" class="form-grid">
+                    <mat-form-field appearance="outline">
+                        <mat-label>RUC</mat-label>
+                        <input matInput formControlName="ruc" maxlength="11">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Razón Social</mat-label>
+                        <input matInput formControlName="razonSocial">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Dirección</mat-label>
+                        <input matInput formControlName="direccion">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ciudad</mat-label>
+                        <input matInput formControlName="ciudad">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Departamento</mat-label>
+                        <input matInput formControlName="departamento">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Código Postal</mat-label>
+                        <input matInput formControlName="codigoPostal">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Teléfono</mat-label>
+                        <input matInput formControlName="telefono">
+                    </mat-form-field>
+                    <div class="stepper-buttons full-width">
+                        <button mat-button matStepperPrevious>Atrás</button>
+                        <button mat-button matStepperNext>Continuar</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!-- Step 3: Negocio -->
+            <mat-step [stepControl]="negocioForm">
+                <ng-template matStepLabel>Negocio</ng-template>
+                <form [formGroup]="negocioForm">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Categoría</mat-label>
+                        <input matInput formControlName="categoria">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Descripción</mat-label>
+                        <textarea matInput formControlName="descripcion" rows="3"></textarea>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Cantidad de Empleados</mat-label>
+                        <input matInput type="number" formControlName="cantidadEmpleados">
+                    </mat-form-field>
+                    <div class="stepper-buttons">
+                        <button mat-button matStepperPrevious>Atrás</button>
+                        <button mat-raised-button color="primary" (click)="onSubmit()">
+                            Agregar empresa
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-stepper>
+    </mat-card>
+</div>

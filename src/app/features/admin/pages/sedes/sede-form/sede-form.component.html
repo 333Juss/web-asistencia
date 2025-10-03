@@ -1,0 +1,157 @@
+<div class="form-container">
+    <mat-card class="form-card">
+        <!-- Header -->
+        <mat-card-header>
+            <div class="header-content">
+                <button mat-icon-button (click)="goBack()">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+                <div class="header-title">
+                    <mat-card-title>
+                        {{ isEditMode ? 'Editar Sede' : 'Configurar Nueva Sede' }}
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        {{ isEditMode ? 'Actualiza la información de la sede' : 'Establece las coordenadas GPS y radio
+                        de cobertura' }}
+                    </mat-card-subtitle>
+                </div>
+            </div>
+        </mat-card-header>
+
+        <!-- Loading -->
+        <div *ngIf="loading" class="loading-container">
+            <mat-spinner diameter="40"></mat-spinner>
+            <p>Cargando datos...</p>
+        </div>
+
+        <!-- Form -->
+        <mat-card-content *ngIf="!loading">
+            <form [formGroup]="sedeForm" (ngSubmit)="onSubmit()">
+
+                <!-- Datos Básicos -->
+                <div class="section">
+                    <h3 class="section-title">Datos de la Sede</h3>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Código</mat-label>
+                            <input matInput formControlName="codigo" placeholder="SB01" [readonly]="isEditMode">
+                            <mat-icon matPrefix>qr_code</mat-icon>
+                            <mat-hint>Código único de la sede</mat-hint>
+                            <mat-error>{{ getErrorMessage('codigo') }}</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput formControlName="nombre" placeholder="Tienda Central">
+                            <mat-icon matPrefix>store</mat-icon>
+                            <mat-error>{{ getErrorMessage('nombre') }}</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field full-width">
+                            <mat-label>Dirección</mat-label>
+                            <input matInput formControlName="direccion" placeholder="Av. Principal 123">
+                            <mat-icon matPrefix>location_on</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Distrito</mat-label>
+                            <input matInput formControlName="distrito" placeholder="San Borja">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Provincia</mat-label>
+                            <input matInput formControlName="provincia" placeholder="Lima">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Departamento</mat-label>
+                            <input matInput formControlName="departamento" placeholder="Lima">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Ubicación GPS -->
+                <div class="section">
+                    <h3 class="section-title">
+                        <mat-icon>map</mat-icon>
+                        Ubicación GPS y Radio de Cobertura
+                    </h3>
+                    <p class="section-description">
+                        Haz clic en el mapa para establecer la ubicación de la sede. El círculo mostrará el área
+                        permitida para marcar asistencia.
+                    </p>
+
+                    <!-- Radio Slider -->
+                    <div class="radio-control">
+                        <label class="radio-label">
+                            Radio de cobertura: <strong>{{ sedeForm.get('radioMetros')?.value }}m</strong>
+                        </label>
+                        <mat-slider [min]="MIN_RADIO" [max]="MAX_RADIO" [step]="5" [displayWith]="formatLabel"
+                            class="radio-slider">
+                            <input matSliderThumb formControlName="radioMetros">
+                        </mat-slider>
+                        <div class="radio-hint">
+                            <span>Mínimo: {{ MIN_RADIO }}m</span>
+                            <span>Máximo: {{ MAX_RADIO }}m</span>
+                        </div>
+                    </div>
+
+                    <!-- Mapa -->
+                    <div class="map-wrapper">
+                        <app-sede-map [ubicacion]="ubicacion" [editable]="true" height="500px"
+                            (ubicacionChange)="onUbicacionChange($event)">
+                        </app-sede-map>
+                    </div>
+
+                    <!-- Info de coordenadas -->
+                    <div class="coordinates-info" *ngIf="ubicacion">
+                        <div class="info-item">
+                            <mat-icon>explore</mat-icon>
+                            <div>
+                                <label>Latitud</label>
+                                <span>{{ ubicacion.latitud.toFixed(6) }}</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <mat-icon>explore</mat-icon>
+                            <div>
+                                <label>Longitud</label>
+                                <span>{{ ubicacion.longitud.toFixed(6) }}</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <mat-icon>radio_button_checked</mat-icon>
+                            <div>
+                                <label>Radio</label>
+                                <span>{{ ubicacion.radioMetros }}m</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+                    <button mat-button type="button" (click)="goBack()" [disabled]="submitting">
+                        Cancelar
+                    </button>
+
+                    <button mat-button type="button" (click)="resetForm()" *ngIf="!isEditMode" [disabled]="submitting">
+                        Limpiar
+                    </button>
+
+                    <button mat-raised-button color="primary" type="submit"
+                        [disabled]="submitting || sedeForm.invalid || !ubicacion">
+                        <mat-icon *ngIf="!submitting">save</mat-icon>
+                        <mat-spinner *ngIf="submitting" diameter="20"></mat-spinner>
+                        {{ submitting ? 'Guardando...' : (isEditMode ? 'Actualizar Sede' : 'Guardar Sede') }}
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
