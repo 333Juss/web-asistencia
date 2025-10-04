@@ -1,5 +1,7 @@
 package com.example.asistencia.entity;
+
 import com.example.asistencia.entity.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -19,15 +21,18 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Colaborador extends BaseEntity {
 
     @NotNull(message = "La empresa es obligatoria")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empresa_id", nullable = false)
+    @JsonIgnoreProperties({"colaboradores", "sedes", "hibernateLazyInitializer", "handler"})
     private Empresa empresa;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sede_id")
+    @JsonIgnoreProperties({"colaboradores", "empresa", "hibernateLazyInitializer", "handler"})
     private Sede sede;
 
     @NotBlank(message = "El DNI es obligatorio")

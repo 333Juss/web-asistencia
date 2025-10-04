@@ -1,7 +1,7 @@
 package com.example.asistencia.entity;
 
-import com.example.asistencia.entity.Empresa;
 import com.example.asistencia.entity.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,11 +17,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Sede extends BaseEntity {
 
     @NotNull(message = "La empresa es obligatoria")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empresa_id", nullable = false)
+    @JsonIgnoreProperties({"sedes", "colaboradores", "hibernateLazyInitializer", "handler"})
     private Empresa empresa;
 
     @NotBlank(message = "El código es obligatorio")
