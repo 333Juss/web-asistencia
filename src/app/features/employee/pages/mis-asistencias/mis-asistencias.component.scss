@@ -1,0 +1,344 @@
+@use 'styles/variables' as *;
+
+.mis-asistencias-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+
+    .page-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+
+        .back-button {
+            mat-icon {
+                color: $text-secondary;
+            }
+        }
+
+        .header-info {
+            .page-title {
+                font-size: 28px;
+                font-weight: 600;
+                margin: 0 0 4px 0;
+                color: $text-primary;
+            }
+
+            .page-subtitle {
+                font-size: 14px;
+                color: $text-secondary;
+                margin: 0;
+            }
+        }
+    }
+
+    .card-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 16px 0;
+        color: $text-primary;
+
+        mat-icon {
+            color: $primary-color;
+        }
+    }
+
+    // Resumen Card
+    .resumen-card {
+        margin-bottom: 24px;
+
+        .resumen-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 24px;
+
+            .resumen-item {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                padding: 16px;
+                background: $background-light;
+                border-radius: 8px;
+
+                .resumen-icon {
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    mat-icon {
+                        font-size: 28px;
+                        width: 28px;
+                        height: 28px;
+                        color: white;
+                    }
+
+                    &.dias {
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    }
+
+                    &.horas {
+                        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+                    }
+
+                    &.promedio {
+                        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+                    }
+
+                    &.tardanzas {
+                        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+                    }
+                }
+
+                .resumen-details {
+                    flex: 1;
+
+                    label {
+                        display: block;
+                        font-size: 12px;
+                        color: $text-secondary;
+                        margin-bottom: 4px;
+                    }
+
+                    .resumen-value {
+                        display: block;
+                        font-size: 24px;
+                        font-weight: 700;
+                        color: $text-primary;
+                    }
+                }
+            }
+        }
+    }
+
+    // Filtros Card
+    .filtros-card {
+        margin-bottom: 24px;
+
+        .periodos-chips {
+            margin: 16px 0;
+
+            mat-chip-listbox {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+        }
+
+        .filtros-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr) auto;
+            gap: 16px;
+            align-items: start;
+            margin-top: 16px;
+
+            mat-form-field {
+                width: 100%;
+            }
+
+            .filtros-actions {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                padding-top: 8px;
+            }
+        }
+    }
+
+    // Loading
+    .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 24px;
+        gap: 16px;
+
+        p {
+            color: $text-secondary;
+            font-size: 16px;
+        }
+    }
+
+    // Tabla Card
+    .tabla-card {
+        .tabla-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+
+            .total-registros {
+                font-size: 14px;
+                color: $text-secondary;
+            }
+        }
+
+        .sin-resultados {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+            gap: 16px;
+
+            mat-icon {
+                font-size: 72px;
+                width: 72px;
+                height: 72px;
+                color: $text-secondary;
+                opacity: 0.5;
+            }
+
+            p {
+                font-size: 16px;
+                color: $text-secondary;
+                margin: 0;
+            }
+        }
+
+        .tabla-wrapper {
+            overflow-x: auto;
+
+            .asistencias-table {
+                width: 100%;
+
+                th {
+                    font-weight: 600;
+                    color: $text-primary;
+                    background: $background-light;
+                }
+
+                td {
+                    color: $text-secondary;
+                }
+
+                .fecha-cell {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+
+                    .dia-semana {
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: $primary-color;
+                        text-transform: uppercase;
+                    }
+
+                    .fecha-completa {
+                        font-size: 14px;
+                        color: $text-primary;
+                    }
+                }
+
+                .hora-cell {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 6px 12px;
+                    border-radius: 6px;
+                    font-weight: 500;
+                    display: inline-flex;
+
+                    mat-icon {
+                        font-size: 18px;
+                        width: 18px;
+                        height: 18px;
+                    }
+
+                    &.entrada {
+                        background: rgba($success, 0.1);
+                        color: $success;
+                    }
+
+                    &.salida {
+                        background: rgba($info, 0.1);
+                        color: $info;
+                    }
+                }
+
+                .hora-vacia {
+                    color: $text-secondary;
+                    opacity: 0.5;
+                }
+
+                .horas-value {
+                    font-weight: 600;
+                    color: $primary-color;
+                }
+
+                mat-chip {
+                    &.estado-completo {
+                        background: rgba($success, 0.1);
+                        color: $success;
+                    }
+
+                    &.estado-turno {
+                        background: rgba($warning, 0.1);
+                        color: $warning;
+                    }
+
+                    &.estado-pendiente {
+                        background: rgba($text-secondary, 0.1);
+                        color: $text-secondary;
+                    }
+
+                    mat-icon {
+                        font-size: 16px;
+                        width: 16px;
+                        height: 16px;
+                        margin-right: 4px;
+                    }
+                }
+            }
+
+            mat-paginator {
+                border-top: 1px solid rgba(0, 0, 0, 0.12); // Reemplazar $border-color
+                margin-top: 16px;
+            }
+        }
+    }
+}
+
+// Responsive
+@media (max-width: $breakpoint-lg) {
+    .mis-asistencias-container {
+        .resumen-card .resumen-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+@media (max-width: $breakpoint-md) {
+    .mis-asistencias-container {
+        padding: 16px;
+
+        .filtros-card .filtros-form {
+            grid-template-columns: 1fr;
+
+            .filtros-actions {
+                flex-direction: column;
+                width: 100%;
+
+                button {
+                    width: 100%;
+                }
+            }
+        }
+
+        .resumen-card .resumen-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .tabla-card .asistencias-table {
+            font-size: 14px;
+        }
+    }
+}

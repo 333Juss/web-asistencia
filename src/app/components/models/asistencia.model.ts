@@ -27,6 +27,14 @@ export interface Asistencia {
     sede?: Sede;
 }
 
+export interface AsistenciaResumen {
+    diasTrabajados: number;
+    horasTotales: number;
+    promedioHorasDiarias: number;
+    tardanzas: number;
+    // Agrega otras propiedades según tu backend
+}
+
 export enum EstadoAsistencia {
     COMPLETA = 'COMPLETA',
     INCOMPLETA = 'INCOMPLETA',

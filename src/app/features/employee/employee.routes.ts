@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { RegistroBiometricoComponent } from './pages/registro-biometrico/registro-biometrico.component';
 import { MarcarAsistenciaComponent } from './pages/marca-asistencia/marcar-asistencia.component';
+import { MisAsistenciasComponent } from './pages/mis-asistencias/mis-asistencias.component';
 
 
 export const EMPLOYEE_ROUTES: Routes = [
@@ -16,5 +17,9 @@ export const EMPLOYEE_ROUTES: Routes = [
     {
         path: 'registro-biometrico',
         component: RegistroBiometricoComponent
+    },
+    {
+        path: 'mis-asistencias',
+        component: MisAsistenciasComponent
     }
 ];

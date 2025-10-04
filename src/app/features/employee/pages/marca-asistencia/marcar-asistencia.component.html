@@ -82,6 +82,7 @@
         </mat-card>
 
         <!-- Action Card -->
+        <!-- Action Card -->
         <mat-card class="action-card" *ngIf="currentStep === 'idle'">
             <h3 class="card-title">Marcar Asistencia</h3>
             <mat-divider></mat-divider>
@@ -89,14 +90,16 @@
             <div class="action-buttons">
                 <button mat-raised-button color="primary" (click)="iniciarMarcarEntrada()"
                     [disabled]="!puedeMarcarEntrada" class="action-button entrada-button">
-                    <mat-icon>fingerprint</mat-icon>
+                    <mat-icon>face</mat-icon>
                     <span>Marcar Entrada</span>
+                    <small>Reconocimiento Facial + GPS</small>
                 </button>
 
                 <button mat-raised-button color="accent" (click)="iniciarMarcarSalida()" [disabled]="!puedeMarcarSalida"
                     class="action-button salida-button">
-                    <mat-icon>fingerprint</mat-icon>
+                    <mat-icon>face</mat-icon>
                     <span>Marcar Salida</span>
+                    <small>Reconocimiento Facial + GPS</small>
                 </button>
             </div>
 
@@ -118,7 +121,6 @@
                 </div>
             </div>
 
-            <!-- Step: Capturando Rostro -->
             <div class="step-content" *ngIf="currentStep === 'capturando-rostro'">
                 <div class="step-header">
                     <mat-icon class="step-icon success">location_on</mat-icon>
@@ -129,8 +131,11 @@
                 <mat-divider></mat-divider>
 
                 <div class="camera-section">
-                    <h4>Reconocimiento Facial</h4>
-                    <p class="instruction">Centra tu rostro en la cámara y haz clic en el botón para capturar</p>
+                    <h4>
+                        <mat-icon>{{ iconoMarcacion }}</mat-icon>
+                        Reconocimiento Facial - {{ tipoMarcacion === 'entrada' ? 'Entrada' : 'Salida' }}
+                    </h4>
+                    <p class="instruction">Centra tu rostro en la cámara. Se requiere al menos 90% de coincidencia</p>
 
                     <app-camera-capture [maxImages]="1" [showPreview]="false" height="400px"
                         (imagesCaptures)="onImagesCaptured($event)">
@@ -141,9 +146,10 @@
                             <mat-icon>close</mat-icon>
                             Cancelar
                         </button>
-                        <button mat-raised-button color="primary" (click)="capturarRostro()">
-                            <mat-icon>camera_alt</mat-icon>
-                            Capturar y Verificar
+                        <button mat-raised-button [color]="tipoMarcacion === 'entrada' ? 'primary' : 'accent'"
+                            (click)="capturarRostro()">
+                            <mat-icon>{{ iconoMarcacion }}</mat-icon>
+                            {{ textoBotonCaptura }}
                         </button>
                     </div>
                 </div>
@@ -188,13 +194,15 @@
         <mat-card class="tips-card">
             <h4>
                 <mat-icon>lightbulb</mat-icon>
-                Consejos
+                Consejos para marcar asistencia
             </h4>
             <ul>
-                <li>Asegúrate de estar dentro del perímetro de la sede</li>
-                <li>Ten buena iluminación al momento de capturar tu rostro</li>
-                <li>Retira gafas o accesorios que obstruyan tu rostro</li>
-                <li>Si tienes problemas, contacta a tu supervisor</li>
+                <li><strong>Ubicación:</strong> Debes estar dentro del perímetro de tu sede (máximo {{
+                    colaborador?.sede?.radioMetros || 100 }}m)</li>
+                <li><strong>Rostro:</strong> Asegúrate de tener buena iluminación y mira directamente a la cámara</li>
+                <li><strong>Reconocimiento:</strong> Se requiere al menos 90% de coincidencia facial</li>
+                <li><strong>Accesorios:</strong> Retira gafas, gorras o mascarillas que obstruyan tu rostro</li>
+                <li><strong>Problemas:</strong> Si no puedes marcar, contacta a tu supervisor</li>
             </ul>
         </mat-card>
 

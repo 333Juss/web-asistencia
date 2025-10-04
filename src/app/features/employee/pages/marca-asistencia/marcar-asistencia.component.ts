@@ -15,6 +15,7 @@ import { GeolocationService, UserLocation } from '../../../../core/services/geol
 import { AuthService } from '../../../../core/services/auth.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 
+type TipoMarcacion = 'entrada' | 'salida';
 
 @Component({
     selector: 'app-marcar-asistencia',
@@ -49,8 +50,14 @@ export class MarcarAsistenciaComponent implements OnInit {
     dentroDeRadio = false;
     distancia?: number;
 
+    // Tipo de marcación actual
+    tipoMarcacion?: TipoMarcacion;
+
     // Estado del proceso
     currentStep: 'idle' | 'verificando-ubicacion' | 'capturando-rostro' | 'procesando' | 'completado' = 'idle';
+
+    // Configuración del umbral de reconocimiento facial (90% = 0.90)
+    private readonly UMBRAL_CONFIANZA = 0.90;
 
     constructor(
         private asistenciaService: AsistenciaService,
@@ -125,6 +132,13 @@ export class MarcarAsistenciaComponent implements OnInit {
      * Inicia el proceso de marcación de entrada
      */
     iniciarMarcarEntrada(): void {
+        // HU03 - Escenario 2: Validar que no hay entrada previa
+        if (this.asistenciaHoy?.horaEntrada) {
+            this.notificationService.warning('Ya has marcado entrada hoy');
+            return;
+        }
+
+        this.tipoMarcacion = 'entrada';
         this.currentStep = 'verificando-ubicacion';
         this.verificarUbicacion();
     }
@@ -133,6 +147,18 @@ export class MarcarAsistenciaComponent implements OnInit {
      * Inicia el proceso de marcación de salida
      */
     iniciarMarcarSalida(): void {
+        // HU04 - Escenario 2: Validar que existe entrada previa
+        if (!this.asistenciaHoy?.horaEntrada) {
+            this.notificationService.error('No tienes entrada registrada');
+            return;
+        }
+
+        if (this.asistenciaHoy?.horaSalida) {
+            this.notificationService.warning('Ya has marcado salida hoy');
+            return;
+        }
+
+        this.tipoMarcacion = 'salida';
         this.currentStep = 'verificando-ubicacion';
         this.verificarUbicacion();
     }
@@ -144,6 +170,7 @@ export class MarcarAsistenciaComponent implements OnInit {
         if (!this.colaborador?.sede) {
             this.notificationService.error('No tienes una sede asignada');
             this.currentStep = 'idle';
+            this.tipoMarcacion = undefined;
             return;
         }
 
@@ -152,11 +179,11 @@ export class MarcarAsistenciaComponent implements OnInit {
         if (!sede.latitud || !sede.longitud) {
             this.notificationService.error('La sede no tiene ubicación configurada');
             this.currentStep = 'idle';
+            this.tipoMarcacion = undefined;
             return;
         }
 
         this.verificandoUbicacion = true;
-        this.notificationService.verificandoUbicacion();
 
         this.geolocationService.getCurrentPosition().subscribe({
             next: (location: UserLocation) => {
@@ -177,18 +204,21 @@ export class MarcarAsistenciaComponent implements OnInit {
                 this.verificandoUbicacion = false;
 
                 if (this.dentroDeRadio) {
-                    this.notificationService.success(distanciaInfo.message);
+                    // HU03 - Escenario 1: Dentro del perímetro
+                    this.notificationService.success(`Ubicación verificada (${this.distancia.toFixed(0)}m de la sede)`);
                     this.currentStep = 'capturando-rostro';
                 } else {
-                    this.notificationService.fueraDeZona();
-                    this.notificationService.warning(distanciaInfo.message);
+                    // HU03 - Escenario 2: Fuera del perímetro
+                    this.notificationService.error('Debes estar dentro del perímetro de la tienda');
                     this.currentStep = 'idle';
+                    this.tipoMarcacion = undefined;
                 }
             },
             error: (error) => {
                 this.verificandoUbicacion = false;
                 this.currentStep = 'idle';
-                this.notificationService.error(error.message);
+                this.tipoMarcacion = undefined;
+                this.notificationService.error(error.message || 'No se pudo obtener tu ubicación');
             }
         });
     }
@@ -217,35 +247,53 @@ export class MarcarAsistenciaComponent implements OnInit {
      * Procesa la marcación (entrada o salida)
      */
     private procesarMarcacion(imagenBase64: string): void {
-        if (!this.colaborador?.id || !this.ubicacionActual) return;
+        if (!this.colaborador?.id || !this.ubicacionActual || !this.tipoMarcacion) return;
 
         this.currentStep = 'procesando';
         this.procesando = true;
 
-        // Primero verificar el rostro
+        // Primero verificar el rostro con umbral del 90%
         this.reconocimientoService.verificarRostro({
             imagenBase64: imagenBase64,
             colaboradorId: this.colaborador.id
         }).subscribe({
             next: (response) => {
                 if (response.success && response.data) {
-                    if (response.data.coincide && this.reconocimientoService.esConfianzaSuficiente(response.data.confianza)) {
-                        // Rostro verificado, proceder con la marcación
-                        if (this.asistenciaHoy?.horaEntrada && !this.asistenciaHoy?.horaSalida) {
-                            this.marcarSalida(imagenBase64, response.data.confianza);
-                        } else {
-                            this.marcarEntrada(imagenBase64, response.data.confianza);
+                    const confianza = response.data.confianza;
+                    const porcentajeConfianza = (confianza * 100).toFixed(0);
+
+                    // HU03 - Verificar umbral de confianza del 90%
+                    if (response.data.coincide && confianza >= this.UMBRAL_CONFIANZA) {
+                        // Rostro verificado con suficiente confianza
+                        if (this.tipoMarcacion === 'entrada') {
+                            this.marcarEntrada(imagenBase64, confianza);
+                        } else if (this.tipoMarcacion === 'salida') {
+                            this.marcarSalida(imagenBase64, confianza);
                         }
                     } else {
                         this.procesando = false;
                         this.currentStep = 'idle';
-                        this.notificationService.bajaConfianza();
+                        this.tipoMarcacion = undefined;
+
+                        if (confianza < this.UMBRAL_CONFIANZA) {
+                            this.notificationService.error(
+                                `Reconocimiento facial insuficiente (${porcentajeConfianza}%). Se requiere al menos 90%`
+                            );
+                        } else {
+                            this.notificationService.error('No se pudo verificar tu identidad');
+                        }
                     }
+                } else {
+                    this.procesando = false;
+                    this.currentStep = 'idle';
+                    this.tipoMarcacion = undefined;
+                    this.notificationService.error('No se pudo verificar tu rostro');
                 }
             },
             error: () => {
                 this.procesando = false;
                 this.currentStep = 'idle';
+                this.tipoMarcacion = undefined;
             }
         });
     }
@@ -271,19 +319,26 @@ export class MarcarAsistenciaComponent implements OnInit {
         this.asistenciaService.marcarEntrada(dto).subscribe({
             next: (response) => {
                 this.procesando = false;
-                if (response.success) {
+                if (response.success && response.data) {
                     this.currentStep = 'completado';
-                    this.notificationService.entradaRegistrada();
                     this.asistenciaHoy = response.data;
+
+                    // HU03 - Escenario 1: Mensaje de éxito
+                    const porcentaje = (confianza * 100).toFixed(0);
+                    this.notificationService.success(
+                        `Entrada registrada correctamente (${dto.horaEntrada} - ${porcentaje}% coincidencia)`
+                    );
 
                     setTimeout(() => {
                         this.currentStep = 'idle';
+                        this.tipoMarcacion = undefined;
                     }, 3000);
                 }
             },
             error: () => {
                 this.procesando = false;
                 this.currentStep = 'idle';
+                this.tipoMarcacion = undefined;
             }
         });
     }
@@ -309,18 +364,26 @@ export class MarcarAsistenciaComponent implements OnInit {
                 this.procesando = false;
                 if (response.success && response.data) {
                     this.currentStep = 'completado';
-                    const horas = response.data.horasTrabajadas || 0;
-                    this.notificationService.salidaRegistrada(horas);
                     this.asistenciaHoy = response.data;
+                    const horas = response.data.horasTrabajadas || 0;
+
+                    // HU04 - Escenario 1: Mensaje con horas trabajadas
+                    const horasEnteras = Math.floor(horas);
+                    const minutos = Math.round((horas - horasEnteras) * 60);
+                    this.notificationService.success(
+                        `Salida registrada. Trabajaste ${horasEnteras} horas${minutos > 0 ? ` y ${minutos} minutos` : ''}`
+                    );
 
                     setTimeout(() => {
                         this.currentStep = 'idle';
+                        this.tipoMarcacion = undefined;
                     }, 3000);
                 }
             },
             error: () => {
                 this.procesando = false;
                 this.currentStep = 'idle';
+                this.tipoMarcacion = undefined;
             }
         });
     }
@@ -333,6 +396,7 @@ export class MarcarAsistenciaComponent implements OnInit {
         this.ubicacionActual = undefined;
         this.dentroDeRadio = false;
         this.distancia = undefined;
+        this.tipoMarcacion = undefined;
     }
 
     /**
@@ -372,5 +436,19 @@ export class MarcarAsistenciaComponent implements OnInit {
     formatHora(hora?: string): string {
         if (!hora) return '-';
         return hora.substring(0, 5);
+    }
+
+    /**
+     * Obtiene el texto del botón de captura
+     */
+    get textoBotonCaptura(): string {
+        return this.tipoMarcacion === 'entrada' ? 'Capturar y Marcar Entrada' : 'Capturar y Marcar Salida';
+    }
+
+    /**
+     * Obtiene el ícono según el tipo de marcación
+     */
+    get iconoMarcacion(): string {
+        return this.tipoMarcacion === 'entrada' ? 'login' : 'logout';
     }
 }
