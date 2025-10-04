@@ -10,7 +10,7 @@ import { ApiResponse, FilterRequest, PaginatedResponse, Sede, SedeCreateDto, Sed
 })
 export class SedeService {
 
-    private apiUrl = `${'http://localhost:8080'}/sedes`;
+    private apiUrl = `${'http://localhost:8080'}/api/sedes`;
 
     constructor(private http: HttpClient) { }
 

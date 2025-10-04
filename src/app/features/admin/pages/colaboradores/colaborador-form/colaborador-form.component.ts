@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ColaboradorService } from '../../../services/colaborador.service';
+import { SedeService } from '../../../services/sede.service'; // ← AGREGAR
 import { Observable, of } from 'rxjs';
 import { map, catchError, debounceTime, switchMap } from 'rxjs/operators';
 import { Colaborador, ColaboradorCreateDto, ColaboradorUpdateDto, Sede } from '../../../../../components/models';
@@ -42,11 +43,9 @@ export class ColaboradorFormComponent implements OnInit {
     loading = false;
     submitting = false;
 
-    // Mock data - En producción vendría del backend
-    sedes: Sede[] = [
-        { id: 1, empresaId: 1, codigo: 'SB', nombre: 'San Borja', radioMetros: 50, activo: true },
-        { id: 2, empresaId: 1, codigo: 'LC', nombre: 'Lince', radioMetros: 50, activo: true }
-    ];
+    // Datos desde el backend
+    sedes: Sede[] = [];
+    loadingSedes = false;
 
     cargos: string[] = [
         'Gerente',
@@ -62,6 +61,7 @@ export class ColaboradorFormComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private colaboradorService: ColaboradorService,
+        private sedeService: SedeService, // ← AGREGAR
         private notificationService: NotificationService,
         private router: Router,
         private route: ActivatedRoute
@@ -69,7 +69,28 @@ export class ColaboradorFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.initForm();
+        this.loadSedes(); // ← AGREGAR
         this.checkEditMode();
+    }
+
+    /**
+     * Carga las sedes activas desde el backend
+     */
+    private loadSedes(): void {
+        this.loadingSedes = true;
+        this.sedeService.getSedesActivas().subscribe({
+            next: (response) => {
+                if (response.success && response.data) {
+                    this.sedes = response.data;
+                }
+                this.loadingSedes = false;
+            },
+            error: (error) => {
+                this.loadingSedes = false;
+                this.notificationService.error('Error al cargar las sedes');
+                console.error('Error cargando sedes:', error);
+            }
+        });
     }
 
     /**
@@ -216,7 +237,7 @@ export class ColaboradorFormComponent implements OnInit {
             next: (response) => {
                 this.submitting = false;
                 if (response.success) {
-                    this.notificationService.colaboradorRegistrado();
+                    this.notificationService.success('Colaborador registrado correctamente');
                     this.goBack();
                 }
             },

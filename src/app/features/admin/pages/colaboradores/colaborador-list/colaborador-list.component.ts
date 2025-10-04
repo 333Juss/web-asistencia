@@ -99,6 +99,7 @@ export class ColaboradorListComponent implements OnInit {
 
         this.colaboradorService.getColaboradores(filterRequest).subscribe({
             next: (response) => {
+                console.log(response.data)
                 if (response.success && response.data) {
                     this.dataSource.data = response.data.content;
                     this.totalElements = response.data.totalElements;

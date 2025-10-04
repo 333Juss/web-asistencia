@@ -97,9 +97,12 @@
                     <div class="form-row">
                         <mat-form-field appearance="outline" class="form-field">
                             <mat-label>Sede</mat-label>
-                            <mat-select formControlName="sedeId">
+                            <mat-select formControlName="sedeId" [disabled]="loadingSedes">
+                                <mat-option *ngIf="loadingSedes" disabled>
+                                    <mat-spinner diameter="20"></mat-spinner> Cargando sedes...
+                                </mat-option>
                                 <mat-option *ngFor="let sede of sedes" [value]="sede.id">
-                                    {{ sede.nombre }}
+                                    {{ sede.nombre }} ({{ sede.codigo }})
                                 </mat-option>
                             </mat-select>
                             <mat-icon matPrefix>store</mat-icon>

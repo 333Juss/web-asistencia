@@ -52,7 +52,7 @@ export interface ColaboradorListItem {
     nombreCompleto: string;
     email: string;
     cargo?: string;
-    sede?: string;
+    sede?: string | { nombre: string; codigo: string }; // Acepta string u objeto
     tieneDatosBiometricos: boolean;
     activo: boolean;
     fechaIngreso?: Date;
