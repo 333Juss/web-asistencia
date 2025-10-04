@@ -78,23 +78,16 @@ export class LoginComponent implements OnInit {
 
         this.authService.login(credentials).subscribe({
             next: (response) => {
-                if (response.success) {
-                    // El servicio ya maneja la redirección por rol
-                    // Si hay returnUrl, navegar a esa URL en su lugar
-                    if (this.returnUrl !== '/') {
-                        this.router.navigateByUrl(this.returnUrl);
-                    }
-                }
                 this.loading = false;
+                // Ya no necesitas hacer nada aquí
+                // El servicio maneja la redirección automáticamente
             },
             error: (error) => {
                 this.loading = false;
                 console.error('Error en login:', error);
-                // El ErrorInterceptor ya muestra el error
             }
         });
     }
-
     /**
      * Marca todos los campos del formulario como touched
      */

@@ -9,7 +9,7 @@ import { ApiResponse, ReconocimientoFacialDto, ReconocimientoFacialResponse } fr
 })
 export class ReconocimientoFacialService {
 
-    private apiUrl = `${'API_URL'}/reconocimiento`;
+    private apiUrl = `${'http://localhost:8080'}/reconocimiento`;
 
     constructor(private http: HttpClient) { }
 

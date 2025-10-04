@@ -9,7 +9,7 @@ import { ApiResponse, CapturarRostroDto, DatosBiometricos, RegistroBiometricoRes
 })
 export class BiometriaService {
 
-    private apiUrl = `${'API_URL'}/biometria`;
+    private apiUrl = `${'http://localhost:8080'}/biometria`;
 
     constructor(private http: HttpClient) { }
 

@@ -12,15 +12,20 @@ export const authGuard: CanActivateFn = (route, state) => {
     const router = inject(Router);
     const notificationService = inject(NotificationService);
 
+    console.log('🛡️ AUTH GUARD - Verificando acceso a:', state.url);
+
     const token = storageService.getToken();
     const currentUser = storageService.getCurrentUser();
 
+    console.log('🛡️ AUTH GUARD - Token:', token ? 'Existe' : 'No existe');
+    console.log('🛡️ AUTH GUARD - Usuario:', currentUser);
+
     if (token && currentUser) {
-        // Usuario autenticado
+        console.log('✅ AUTH GUARD - Acceso permitido');
         return true;
     }
 
-    // No autenticado - limpiar datos y redirigir
+    console.log('❌ AUTH GUARD - Acceso denegado, redirigiendo a login');
     storageService.clearAuthData();
     notificationService.warning('Debes iniciar sesión para acceder');
     router.navigate(['/auth/login'], {

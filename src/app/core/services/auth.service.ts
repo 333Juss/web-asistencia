@@ -13,7 +13,7 @@ import { ApiResponse, Colaborador, LoginDto, LoginResponseDto, Usuario } from '.
 export class AuthService {
 
     //private apiUrl = `${environment.apiUrl}/auth`;
-    private apiUrl = `${'API_URL'}/auth`;
+    private apiUrl = `${'http://localhost:8080'}/api/auth`;
 
     // Subject para el usuario autenticado
     private currentUserSubject = new BehaviorSubject<Usuario | null>(null);
@@ -89,17 +89,28 @@ export class AuthService {
      * Redirige al usuario según su rol
      */
     private redirectByRole(rol: string): void {
+        console.log('🔄 Intentando redirigir. Rol:', rol);
+
+        let ruta: string;
         switch (rol) {
             case 'ADMIN':
             case 'RRHH':
-                this.router.navigate(['/admin/dashboard']);
+                ruta = '/admin/colaboradores';  // ← Cambiado de dashboard a colaboradores
                 break;
             case 'EMPLEADO':
-                this.router.navigate(['/employee/marcar-asistencia']);
+                ruta = '/employee/marcar-asistencia';
                 break;
             default:
-                this.router.navigate(['/']);
+                ruta = '/';
         }
+
+        console.log('🎯 Navegando a:', ruta);
+
+        this.router.navigateByUrl(ruta, {
+            replaceUrl: true
+        }).then(success => {
+            console.log('✅ Navegación exitosa:', success);
+        });
     }
 
     /**

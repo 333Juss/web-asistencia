@@ -8,6 +8,8 @@ import { errorInterceptorFn } from './core/interceptors/error.interceptor';    /
 import { loadingInterceptorFn } from './core/interceptors/loading.interceptor'; // ← Función
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { Injectable } from '@angular/core';  // ← NUEVO
+import { provideNativeDateAdapter } from '@angular/material/core';  // ← NUEVO
 
 // Clase para traducir el paginador
 class CustomPaginatorIntl extends MatPaginatorIntl {
@@ -41,6 +43,7 @@ export const appConfig: ApplicationConfig = {
         errorInterceptorFn       // ← Función
       ])
     ),
+    provideNativeDateAdapter(),
     { provide: MAT_DATE_LOCALE, useValue: 'es-PE' },
     { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }
   ]

@@ -9,7 +9,7 @@ import { ApiResponse, Asistencia, AsistenciaListItem, AsistenciaResumen, FilterR
 })
 export class AsistenciaService {
 
-    private apiUrl = `${'API_URL'}/asistencias`;
+    private apiUrl = `${'http://localhost:8080'}/asistencias`;
 
     constructor(private http: HttpClient) { }
 

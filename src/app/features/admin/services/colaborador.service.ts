@@ -10,7 +10,7 @@ import { ApiResponse, Colaborador, ColaboradorCreateDto, ColaboradorListItem, Co
 })
 export class ColaboradorService {
 
-    private apiUrl = `${'API_URL'}/colaboradores`;
+    private apiUrl = `${'http://localhost:8080'}/colaboradores`;
 
     constructor(private http: HttpClient) { }
 
