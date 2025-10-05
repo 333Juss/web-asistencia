@@ -56,3 +56,4 @@ Thumbs.db
 /backend/*.iml
 /backend/application-*.properties
 /backend/application-*.yml
+.mailmap
