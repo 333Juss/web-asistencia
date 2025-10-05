@@ -133,7 +133,47 @@
                         <div class="form-field"></div>
                     </div>
                 </div>
+                <div class="section">
+                    <div class="section-header">
+                        <h3 class="section-title">Cuenta de Usuario (Opcional)</h3>
+                        <mat-slide-toggle formControlName="crearUsuario" color="primary">
+                            Crear cuenta de acceso al sistema
+                        </mat-slide-toggle>
+                    </div>
 
+                    <div *ngIf="colaboradorForm.get('crearUsuario')?.value" class="usuario-fields">
+                        <div class="form-row">
+                            <mat-form-field appearance="outline" class="form-field">
+                                <mat-label>Nombre de Usuario</mat-label>
+                                <input matInput formControlName="username" placeholder="juan.perez">
+                                <mat-icon matPrefix>account_circle</mat-icon>
+                                <mat-hint>Ej: nombre.apellido o DNI</mat-hint>
+                                <mat-error>{{ getErrorMessage('username') }}</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="form-field">
+                                <mat-label>Contraseña Temporal</mat-label>
+                                <input matInput [type]="hidePassword ? 'password' : 'text'"
+                                    formControlName="passwordTemporal" placeholder="Mínimo 6 caracteres">
+                                <mat-icon matPrefix>lock</mat-icon>
+                                <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+                                    <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                                </button>
+                                <mat-hint>El colaborador deberá cambiarla en su primer acceso</mat-hint>
+                                <mat-error>{{ getErrorMessage('passwordTemporal') }}</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="info-box">
+                            <mat-icon>info</mat-icon>
+                            <div class="info-content">
+                                <strong>Importante:</strong> Anota estas credenciales y compártelas de forma segura con
+                                el colaborador.
+                                Por seguridad, no podrás ver la contraseña nuevamente después de guardar.
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Actions -->
                 <div class="form-actions">
                     <button mat-button type="button" (click)="goBack()" [disabled]="submitting">

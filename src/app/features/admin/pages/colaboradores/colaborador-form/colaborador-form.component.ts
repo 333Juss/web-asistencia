@@ -36,6 +36,7 @@ import { NotificationService } from '../../../../../core/services/notification.s
     styleUrls: ['./colaborador-form.component.scss']
 })
 export class ColaboradorFormComponent implements OnInit {
+    hidePassword = true;
 
     colaboradorForm!: FormGroup;
     isEditMode = false;
@@ -98,21 +99,39 @@ export class ColaboradorFormComponent implements OnInit {
      */
     private initForm(): void {
         this.colaboradorForm = this.fb.group({
-            dni: ['',
-                [Validators.required, Validators.pattern(/^\d{8}$/)],
-                [this.dniAsyncValidator.bind(this)]
-            ],
+            dni: ['', [Validators.required, Validators.pattern(/^\d{8}$/)], [this.dniAsyncValidator.bind(this)]],
             nombres: ['', [Validators.required, Validators.minLength(2)]],
             apellidos: ['', [Validators.required, Validators.minLength(2)]],
-            email: ['',
-                [Validators.required, Validators.email],
-                [this.emailAsyncValidator.bind(this)]
-            ],
+            email: ['', [Validators.required, Validators.email], [this.emailAsyncValidator.bind(this)]],
             telefono: ['', [Validators.pattern(/^\d{9}$/)]],
             fechaNacimiento: [''],
             fechaIngreso: ['', Validators.required],
             cargo: [''],
-            sedeId: ['', Validators.required]
+            sedeId: ['', Validators.required],
+
+            // Nuevos campos para usuario
+            crearUsuario: [true],
+            username: [''],
+            passwordTemporal: ['']
+        });
+
+        // Validación dinámica cuando se activa "crearUsuario"
+        this.colaboradorForm.get('crearUsuario')?.valueChanges.subscribe(crearUsuario => {
+            const usernameControl = this.colaboradorForm.get('username');
+            const passwordControl = this.colaboradorForm.get('passwordTemporal');
+
+            if (crearUsuario) {
+                usernameControl?.setValidators([Validators.required, Validators.minLength(3)]);
+                passwordControl?.setValidators([Validators.required, Validators.minLength(6)]);
+            } else {
+                usernameControl?.clearValidators();
+                passwordControl?.clearValidators();
+                usernameControl?.setValue('');
+                passwordControl?.setValue('');
+            }
+
+            usernameControl?.updateValueAndValidity();
+            passwordControl?.updateValueAndValidity();
         });
     }
 
@@ -230,14 +249,29 @@ export class ColaboradorFormComponent implements OnInit {
     private createColaborador(): void {
         const dto: ColaboradorCreateDto = {
             ...this.colaboradorForm.value,
-            empresaId: 1 // Mock - debería venir del usuario autenticado
+            empresaId: 1,
+            crearUsuario: true // Crear usuario automáticamente
         };
-
+        console.log('dto: ', dto)
         this.colaboradorService.createColaborador(dto).subscribe({
             next: (response) => {
                 this.submitting = false;
-                if (response.success) {
-                    this.notificationService.success('Colaborador registrado correctamente');
+                if (response.success && response.data) {
+                    // Mostrar credenciales si se creó usuario
+                    if (response.data.usuarioCreado) {
+                        const mensaje = `
+                        Colaborador registrado exitosamente.
+                        
+                        CREDENCIALES DE ACCESO:
+                        Usuario: ${response.data.username}
+                        Contraseña temporal: ${response.data.passwordTemporal}
+                        
+                        IMPORTANTE: Guarde estas credenciales. La contraseña no se mostrará nuevamente.
+                    `;
+                        this.notificationService.success(mensaje, 15000); // 15 segundos
+                    } else {
+                        this.notificationService.success('Colaborador registrado correctamente');
+                    }
                     this.goBack();
                 }
             },
@@ -300,12 +334,8 @@ export class ColaboradorFormComponent implements OnInit {
         }
 
         if (control.hasError('pattern')) {
-            if (fieldName === 'dni') {
-                return 'El DNI debe tener 8 dígitos';
-            }
-            if (fieldName === 'telefono') {
-                return 'El teléfono debe tener 9 dígitos';
-            }
+            if (fieldName === 'dni') return 'El DNI debe tener 8 dígitos';
+            if (fieldName === 'telefono') return 'El teléfono debe tener 9 dígitos';
         }
 
         if (control.hasError('email')) {

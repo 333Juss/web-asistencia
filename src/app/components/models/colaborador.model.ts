@@ -27,6 +27,9 @@ export interface Colaborador {
     // Campos calculados
     nombreCompleto?: string;
     edad?: number;
+    passwordTemporal: string;
+    username: string;
+    usuarioCreado: string;
 }
 
 export interface ColaboradorCreateDto {
@@ -37,9 +40,14 @@ export interface ColaboradorCreateDto {
     apellidos: string;
     email: string;
     telefono?: string;
-    fechaNacimiento?: string; // ISO string format
+    fechaNacimiento?: string;
     fechaIngreso?: string;
     cargo?: string;
+
+    // Campos para crear usuario
+    crearUsuario?: boolean;
+    username?: string;
+    passwordTemporal?: string;
 }
 
 export interface ColaboradorUpdateDto extends Partial<ColaboradorCreateDto> {
