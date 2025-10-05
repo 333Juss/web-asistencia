@@ -1,0 +1,147 @@
+spring:
+  application:
+    name: asistencia-backend
+
+  profiles:
+    active: dev
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Configuración de archivos
+file:
+  upload-dir: ./uploads
+  biometric-dir: ./uploads/biometric
+  attendance-dir: ./uploads/attendance
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.asistencia.backend: DEBUG
+    org.springframework.security: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# Configuración de Swagger/OpenAPI
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+
+---
+# Perfil de DESARROLLO
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/asistencia_db
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          time_zone: America/Lima
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    validate-on-migrate: true
+
+# JWT Configuration
+jwt:
+  secret: MiClaveSecretaSuperSeguraParaDesarrolloDeAlMenos256BitsParaHS256Algorithm
+  expiration: 86400000 # 24 horas en milisegundos
+  refresh-expiration: 604800000 # 7 días
+
+# Facial Recognition
+facial:
+  confidence-threshold: 0.85
+  max-images: 5
+
+# Geofence
+geofence:
+  min-radius: 20
+  max-radius: 200
+  default-radius: 50
+
+---
+# Perfil de PRODUCCIÓN
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          time_zone: America/Lima
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: false
+    locations: classpath:db/migration
+    validate-on-migrate: true
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 86400000
+  refresh-expiration: 604800000
+
+facial:
+  confidence-threshold: 0.90
+  max-images: 5
+
+geofence:
+  min-radius: 20
+  max-radius: 200
+  default-radius: 50
+
+logging:
+  level:
+    root: WARN
+    com.asistencia.backend: INFO
+    org.springframework.security: WARN
