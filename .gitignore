@@ -41,3 +41,18 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Front env
+/.env
+
+# Backend (Java/Spring en /backend)
+/backend/target/
+/backend/build/
+/backend/.gradle/
+/backend/.env
+/backend/*.log
+/backend/.idea/
+/backend/.vscode/
+/backend/*.iml
+/backend/application-*.properties
+/backend/application-*.yml
