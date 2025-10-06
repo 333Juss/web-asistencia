@@ -2,6 +2,7 @@ package com.example.asistencia.controller;
 import com.example.asistencia.dto.request.ColaboradorCreateDto;
 import com.example.asistencia.dto.request.ColaboradorUpdateDto;
 import com.example.asistencia.dto.response.ApiResponse;
+import com.example.asistencia.dto.response.ColaboradorCreatedResponse;
 import com.example.asistencia.entity.Colaborador;
 import com.example.asistencia.service.ColaboradorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -91,11 +92,19 @@ public class ColaboradorController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'RRHH')")
-    @Operation(summary = "Crear colaborador", description = "Crea un nuevo colaborador")
-    public ResponseEntity<ApiResponse<Colaborador>> createColaborador(@Valid @RequestBody ColaboradorCreateDto dto) {
-        Colaborador colaborador = colaboradorService.createColaborador(dto);
+    public ResponseEntity<ApiResponse<ColaboradorCreatedResponse>> createColaborador(
+            @Valid @RequestBody ColaboradorCreateDto dto) {
+
+        ColaboradorCreatedResponse response = colaboradorService.createColaboradorWithUser(dto);
+
+        String mensaje = response.getUsuarioCreado()
+                ? "Colaborador registrado exitosamente. Se creó usuario con acceso al sistema."
+                : "Colaborador registrado exitosamente.";
+
+        response.setMensaje(mensaje);
+
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ApiResponse.success(colaborador, "Colaborador creado correctamente"));
+                .body(ApiResponse.success(response, mensaje));
     }
 
     @PutMapping("/{id}")

@@ -2,15 +2,19 @@ package com.example.asistencia.service.impl;
 
 import com.example.asistencia.dto.request.ColaboradorCreateDto;
 import com.example.asistencia.dto.request.ColaboradorUpdateDto;
+import com.example.asistencia.dto.response.ColaboradorCreatedResponse;
 import com.example.asistencia.entity.Colaborador;
 import com.example.asistencia.entity.Empresa;
 import com.example.asistencia.entity.Sede;
+import com.example.asistencia.entity.Usuario;
 import com.example.asistencia.exception.DuplicateResourceException;
 import com.example.asistencia.exception.ResourceNotFoundException;
 import com.example.asistencia.repository.ColaboradorRepository;
 import com.example.asistencia.repository.EmpresaRepository;
 import com.example.asistencia.repository.SedeRepository;
+import com.example.asistencia.repository.UsuarioRepository;
 import com.example.asistencia.service.ColaboradorService;
+import com.example.asistencia.service.UsuarioService;
 import com.example.asistencia.util.ValidationMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,7 +35,10 @@ public class ColaboradorServiceImpl implements ColaboradorService {
 
     @Autowired
     private SedeRepository sedeRepository;
-
+    @Autowired
+    private UsuarioService usuarioService;
+    @Autowired
+    UsuarioRepository usuarioRepository;
     @Override
     @Transactional(readOnly = true)
     public Page<Colaborador> getAllColaboradores(Pageable pageable) {
@@ -85,31 +92,28 @@ public class ColaboradorServiceImpl implements ColaboradorService {
         return colaboradorRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Colaborador con email " + email + " no encontrado"));
     }
-
     @Override
     @Transactional
-    public Colaborador createColaborador(ColaboradorCreateDto dto) {
-        // Verificar que la empresa existe
+    public ColaboradorCreatedResponse createColaboradorWithUser(ColaboradorCreateDto dto) {
+        // Verificaciones existentes...
         Empresa empresa = empresaRepository.findById(dto.getEmpresaId())
                 .orElseThrow(() -> new ResourceNotFoundException(ValidationMessages.EMPRESA_NOT_FOUND));
 
-        // Verificar que el DNI no existe
         if (colaboradorRepository.existsByDni(dto.getDni())) {
             throw new DuplicateResourceException(ValidationMessages.DUPLICATE_DNI);
         }
 
-        // Verificar que el email no existe
         if (colaboradorRepository.existsByEmail(dto.getEmail())) {
             throw new DuplicateResourceException(ValidationMessages.DUPLICATE_EMAIL);
         }
 
-        // Verificar sede si se proporciona
         Sede sede = null;
         if (dto.getSedeId() != null) {
             sede = sedeRepository.findById(dto.getSedeId())
                     .orElseThrow(() -> new ResourceNotFoundException(ValidationMessages.SEDE_NOT_FOUND));
         }
 
+        // Crear colaborador
         Colaborador colaborador = Colaborador.builder()
                 .empresa(empresa)
                 .sede(sede)
@@ -125,7 +129,46 @@ public class ColaboradorServiceImpl implements ColaboradorService {
                 .activo(true)
                 .build();
 
-        return colaboradorRepository.save(colaborador);
+        colaborador = colaboradorRepository.save(colaborador);
+
+        // Crear usuario si se solicita
+        Usuario usuario = null;
+        String username = null;
+        String passwordTemporal = null;
+
+        if (dto.getCrearUsuario() != null && dto.getCrearUsuario()) {
+            // Validar que se proporcionaron credenciales
+            if (dto.getUsername() == null || dto.getUsername().trim().isEmpty()) {
+                throw new IllegalArgumentException("El username es obligatorio para crear el usuario");
+            }
+            if (dto.getPasswordTemporal() == null || dto.getPasswordTemporal().trim().isEmpty()) {
+                throw new IllegalArgumentException("La contraseña temporal es obligatoria para crear el usuario");
+            }
+
+            // Verificar que el username no existe
+            if (usuarioService.existsByUsername(dto.getUsername())) {
+                throw new DuplicateResourceException("El username '" + dto.getUsername() + "' ya está en uso");
+            }
+
+            username = dto.getUsername();
+            passwordTemporal = dto.getPasswordTemporal();
+            usuario = usuarioService.createUsuarioForColaborador(colaborador, passwordTemporal);
+            usuario.setUsername(username);  // Asignar el username personalizado
+            usuario = usuarioRepository.save(usuario);
+        }
+
+        return ColaboradorCreatedResponse.builder()
+                .colaborador(colaborador)
+                .usuarioCreado(usuario != null)
+                .username(username)
+                .passwordTemporal(passwordTemporal)
+                .build();
+    }
+    @Override
+    @Transactional
+    public Colaborador createColaborador(ColaboradorCreateDto dto) {
+        ColaboradorCreatedResponse response = createColaboradorWithUser(dto);
+        return response.getColaborador();
     }
 
     @Override
