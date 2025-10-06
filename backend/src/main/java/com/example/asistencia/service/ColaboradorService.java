@@ -1,6 +1,7 @@
 package com.example.asistencia.service;
 import com.example.asistencia.dto.request.ColaboradorCreateDto;
 import com.example.asistencia.dto.request.ColaboradorUpdateDto;
+import com.example.asistencia.dto.response.ColaboradorCreatedResponse;
 import com.example.asistencia.entity.Colaborador;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,4 +45,5 @@ public interface ColaboradorService {
     Long countActivos();
 
     Long countConDatosBiometricos();
+    ColaboradorCreatedResponse createColaboradorWithUser(ColaboradorCreateDto dto);
 }

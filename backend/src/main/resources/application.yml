@@ -50,9 +50,9 @@ spring:
       on-profile: dev
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/asistencia_db
+    url: jdbc:postgresql://localhost:5432/here_db
     username: postgres
-    password: admin
+    password: 1121
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
