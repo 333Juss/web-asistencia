@@ -1,4 +1,4 @@
-Grupo 4
+Grupo 2 - 
 Integrantes:
 - Pablo
 - Arthur
