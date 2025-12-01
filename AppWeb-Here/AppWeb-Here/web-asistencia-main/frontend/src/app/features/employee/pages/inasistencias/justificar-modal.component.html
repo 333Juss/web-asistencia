@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Justificar Inasistencia</h2>
+
+<div mat-dialog-content>
+  <p><strong>Fecha:</strong> {{ data.fecha }}</p>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Motivo</mat-label>
+    <textarea matInput rows="3" [(ngModel)]="motivo"></textarea>
+  </mat-form-field>
+
+  <button mat-stroked-button color="primary" (click)="fileInput.click()">
+    <mat-icon>attach_file</mat-icon> Adjuntar archivo
+  </button>
+
+  <input type="file" #fileInput (change)="onFileChange($event)" hidden>
+
+  <p *ngIf="archivoNombre">Archivo: <strong>{{ archivoNombre }}</strong></p>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="enviar()" [disabled]="!motivo">
+    Enviar
+  </button>
+</div>

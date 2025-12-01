@@ -1,0 +1,95 @@
+<div class="reports-container">
+    <div class="header">
+        <h1>Reportes de Asistencia</h1>
+        <p>Genera reportes detallados de asistencia y horas trabajadas</p>
+    </div>
+
+    <mat-card class="filter-card">
+        <form [formGroup]="filterForm" (ngSubmit)="generateReport()">
+            <div class="filter-grid">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha Inicio</mat-label>
+                    <input matInput [matDatepicker]="startPicker" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startPicker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha Fin</mat-label>
+                    <input matInput [matDatepicker]="endPicker" formControlName="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endPicker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Colaborador (Opcional)</mat-label>
+                    <mat-select formControlName="colaboradorId">
+                        <mat-option [value]="null">Todos</mat-option>
+                        <mat-option *ngFor="let col of colaboradores" [value]="col.id">
+                            {{ col.nombreCompleto }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+                    <mat-icon>assessment</mat-icon>
+                    Generar Reporte
+                </button>
+            </div>
+        </form>
+    </mat-card>
+
+    <div class="loading-container" *ngIf="loading">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Generando reporte...</p>
+    </div>
+
+    <mat-card class="table-card" *ngIf="!loading && reportData.length > 0">
+        <table mat-table [dataSource]="reportData">
+
+            <!-- Colaborador Column -->
+            <ng-container matColumnDef="colaborador">
+                <th mat-header-cell *matHeaderCellDef> Colaborador </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombreColaborador}} </td>
+            </ng-container>
+
+            <!-- Sede Column -->
+            <ng-container matColumnDef="sede">
+                <th mat-header-cell *matHeaderCellDef> Sede </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombreSede}} </td>
+            </ng-container>
+
+            <!-- Dias Column -->
+            <ng-container matColumnDef="dias">
+                <th mat-header-cell *matHeaderCellDef> Días Trabajados </th>
+                <td mat-cell *matCellDef="let element"> {{element.diasTrabajados}} </td>
+            </ng-container>
+
+            <!-- Horas Column -->
+            <ng-container matColumnDef="horas">
+                <th mat-header-cell *matHeaderCellDef> Horas Totales </th>
+                <td mat-cell *matCellDef="let element"> {{formatHoras(element.totalHorasTrabajadas)}} </td>
+            </ng-container>
+
+            <!-- Tardanzas Column -->
+            <ng-container matColumnDef="tardanzas">
+                <th mat-header-cell *matHeaderCellDef> Tardanzas </th>
+                <td mat-cell *matCellDef="let element"> {{element.llegadasTarde}} </td>
+            </ng-container>
+
+            <!-- Faltas Column -->
+            <ng-container matColumnDef="faltas">
+                <th mat-header-cell *matHeaderCellDef> Faltas </th>
+                <td mat-cell *matCellDef="let element"> {{element.faltas}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card>
+
+    <div class="no-data" *ngIf="!loading && reportData.length === 0">
+        <mat-icon>info</mat-icon>
+        <p>No hay datos para mostrar en el rango seleccionado.</p>
+    </div>
+</div>

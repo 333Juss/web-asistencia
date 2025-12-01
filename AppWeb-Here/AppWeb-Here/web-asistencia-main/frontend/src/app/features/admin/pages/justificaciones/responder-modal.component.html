@@ -1,0 +1,75 @@
+<h2>Justificación de {{ j.nombres }} {{ j.apellidos }}</h2>
+
+<p><strong>Fecha de falta:</strong> {{ j.fechaFalta }}</p>
+<p><strong>Motivo enviado:</strong> {{ j.motivo }}</p>
+
+<div *ngIf="j.archivoSustento" class="archivo-box">
+  <p><strong>Archivo adjunto:</strong></p>
+
+  <a [href]="getArchivoUrl(j.archivoSustento)"
+     target="_blank"
+     class="btn-ver">
+    📎 Ver archivo adjunto
+  </a>
+
+  <img *ngIf="esImagen(j.archivoSustento)"
+       [src]="getArchivoUrl(j.archivoSustento)"
+       class="preview-img">
+</div>
+
+<!-- Campo de respuesta del supervisor -->
+<textarea [(ngModel)]="respuesta"
+          rows="4"
+          placeholder="Escribe una respuesta..."
+          class="textarea">
+</textarea>
+
+<div class="acciones">
+  <button mat-button color="primary" (click)="aprobar()">Aprobar</button>
+  <button mat-button color="warn" (click)="rechazar()">Rechazar</button>
+  <button mat-button (click)="cancelar()">Cancelar</button>
+</div>
+
+<style>
+  .archivo-box {
+    padding: 10px;
+    background: #f7f7f7;
+    border-radius: 6px;
+    margin-bottom: 15px;
+  }
+
+  .btn-ver {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 5px 10px;
+    background: #1976d2;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+
+  .btn-ver:hover {
+    background: #0d57a1;
+  }
+
+  .preview-img {
+    margin-top: 10px;
+    max-width: 100%;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+
+  .textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: solid 1px #ccc;
+    margin-top: 10px;
+  }
+
+  .acciones {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>

@@ -1,0 +1,88 @@
+<div class="dashboard-container">
+    <div class="header">
+        <div class="header-content">
+            <div>
+                <h1>Dashboard</h1>
+                <p>Resumen de actividad</p>
+            </div>
+            <mat-form-field appearance="outline" class="date-range-picker">
+                <mat-label>Rango de fechas</mat-label>
+                <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                    <input matStartDate formControlName="start" placeholder="Inicio">
+                    <input matEndDate formControlName="end" placeholder="Fin">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="stats-grid" *ngIf="stats">
+        <!-- Total Colaboradores -->
+        <mat-card class="stat-card total">
+            <div class="stat-icon">
+                <mat-icon>people</mat-icon>
+            </div>
+            <div class="stat-content">
+                <span class="stat-value">{{ stats.totalColaboradores }}</span>
+                <span class="stat-label">Colaboradores Activos</span>
+            </div>
+        </mat-card>
+
+        <!-- Asistencias -->
+        <mat-card class="stat-card present">
+            <div class="stat-icon">
+                <mat-icon>check_circle</mat-icon>
+            </div>
+            <div class="stat-content">
+                <span class="stat-value">{{ stats.asistenciasCount }}</span>
+                <span class="stat-label">Asistencias</span>
+            </div>
+        </mat-card>
+
+        <!-- Tardanzas -->
+        <mat-card class="stat-card late">
+            <div class="stat-icon">
+                <mat-icon>schedule</mat-icon>
+            </div>
+            <div class="stat-content">
+                <span class="stat-value">{{ stats.tardanzasCount }}</span>
+                <span class="stat-label">Tardanzas</span>
+            </div>
+        </mat-card>
+
+        <!-- Ausencias -->
+        <mat-card class="stat-card absent">
+            <div class="stat-icon">
+                <mat-icon>cancel</mat-icon>
+            </div>
+            <div class="stat-content">
+                <span class="stat-value">{{ stats.ausenciasCount }}</span>
+                <span class="stat-label">Ausencias</span>
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="charts-grid" *ngIf="stats">
+        <mat-card class="chart-card">
+            <h3>Asistencia por Estado</h3>
+            <div class="chart-container">
+                <canvas baseChart [data]="doughnutChartData" [options]="doughnutChartOptions"
+                    [type]="doughnutChartType">
+                </canvas>
+            </div>
+        </mat-card>
+
+        <mat-card class="chart-card">
+            <h3>Tendencia en Rango</h3>
+            <div class="chart-container">
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="barChartType">
+                </canvas>
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="loading-container" *ngIf="loading">
+        <p>Cargando estadísticas...</p>
+    </div>
+</div>

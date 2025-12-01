@@ -1,0 +1,93 @@
+<div class="config-container">
+    <div class="header">
+        <h1>Configuración del Sistema</h1>
+        <p>Administra los parámetros generales de la empresa y asistencia</p>
+    </div>
+
+    <form [formGroup]="configForm" (ngSubmit)="onSubmit()">
+        <!-- Datos de la Empresa -->
+        <mat-card class="config-card">
+            <mat-card-header>
+                <mat-card-title>Datos de la Empresa</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="form-grid">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre de la Empresa</mat-label>
+                        <input matInput formControlName="nombreEmpresa" placeholder="Ej. Mi Empresa S.A.C.">
+                        <mat-error *ngIf="configForm.get('nombreEmpresa')?.hasError('required')">
+                            El nombre es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>RUC</mat-label>
+                        <input matInput formControlName="ruc" placeholder="20123456789">
+                        <mat-error *ngIf="configForm.get('ruc')?.hasError('required')">
+                            El RUC es obligatorio
+                        </mat-error>
+                        <mat-error
+                            *ngIf="configForm.get('ruc')?.hasError('minlength') || configForm.get('ruc')?.hasError('maxlength')">
+                            El RUC debe tener 11 dígitos
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Dirección</mat-label>
+                        <input matInput formControlName="direccion" placeholder="Av. Principal 123">
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Configuración de Asistencia -->
+        <mat-card class="config-card">
+            <mat-card-header>
+                <mat-card-title>Parámetros de Asistencia</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="form-grid">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Hora Entrada (Default)</mat-label>
+                        <input matInput type="time" formControlName="horaEntradaDefault">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Hora Salida (Default)</mat-label>
+                        <input matInput type="time" formControlName="horaSalidaDefault">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Tolerancia (Minutos)</mat-label>
+                        <input matInput type="number" formControlName="toleranciaMinutos">
+                        <mat-hint>Tiempo permitido después de la hora de entrada</mat-hint>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Configuración Biométrica -->
+        <mat-card class="config-card">
+            <mat-card-header>
+                <mat-card-title>Biometría Facial</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="form-grid">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nivel de Confianza (0.0 - 1.0)</mat-label>
+                        <input matInput type="number" step="0.01" min="0" max="1"
+                            formControlName="nivelConfianzaBiometrica">
+                        <mat-hint>Recomendado: 0.70</mat-hint>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <div class="actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="configForm.invalid || loading">
+                <mat-icon>save</mat-icon>
+                Guardar Cambios
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,237 @@
+<div class="mis-asistencias-container">
+
+    <!-- Header -->
+    <div class="page-header">
+        <button mat-icon-button (click)="volverAMarcar()" class="back-button">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div class="header-info">
+            <h1 class="page-title">Mis Asistencias</h1>
+            <p class="page-subtitle" *ngIf="colaborador">
+                {{ colaborador.nombres }} {{ colaborador.apellidos }}
+            </p>
+        </div>
+    </div>
+
+    <!-- Resumen Card -->
+    <mat-card class="resumen-card" *ngIf="!loadingResumen && resumen">
+        <h3 class="card-title">
+            <mat-icon>assessment</mat-icon>
+            Resumen del Período
+        </h3>
+        <mat-divider></mat-divider>
+
+        <div class="resumen-grid">
+            <div class="resumen-item">
+                <div class="resumen-icon dias">
+                    <mat-icon>event</mat-icon>
+                </div>
+                <div class="resumen-details">
+                    <label>Días Trabajados</label>
+                    <span class="resumen-value">{{ resumen.diasTrabajados || 0 }}</span>
+                </div>
+            </div>
+
+            <div class="resumen-item">
+                <div class="resumen-icon horas">
+                    <mat-icon>schedule</mat-icon>
+                </div>
+                <div class="resumen-details">
+                    <label>Horas Totales</label>
+                    <span class="resumen-value">{{ formatHorasTrabajadas(resumen.horasTotales) }}</span>
+                </div>
+            </div>
+
+            <div class="resumen-item">
+                <div class="resumen-icon promedio">
+                    <mat-icon>trending_up</mat-icon>
+                </div>
+                <div class="resumen-details">
+                    <label>Promedio Diario</label>
+                    <span class="resumen-value">{{ formatHorasTrabajadas(resumen.promedioHorasDiarias) }}</span>
+                </div>
+            </div>
+
+            <div class="resumen-item">
+                <div class="resumen-icon tardanzas">
+                    <mat-icon>access_time</mat-icon>
+                </div>
+                <div class="resumen-details">
+                    <label>Tardanzas</label>
+                    <span class="resumen-value">{{ resumen.tardanzas || 0 }}</span>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+
+    <!-- Filtros Card -->
+    <mat-card class="filtros-card">
+        <h3 class="card-title">
+            <mat-icon>filter_list</mat-icon>
+            Filtros
+        </h3>
+        <mat-divider></mat-divider>
+
+        <!-- Períodos predefinidos -->
+        <div class="periodos-chips">
+            <mat-chip-listbox [value]="periodoSeleccionado" (change)="onPeriodoChange($event)">
+                <mat-chip-option value="hoy">
+                    Hoy
+                </mat-chip-option>
+                <mat-chip-option value="semana-actual">
+                    Esta Semana
+                </mat-chip-option>
+                <mat-chip-option value="mes-actual">
+                    Este Mes
+                </mat-chip-option>
+                <mat-chip-option value="mes-anterior">
+                    Mes Anterior
+                </mat-chip-option>
+                <mat-chip-option value="ultimos-30">
+                    Últimos 30 días
+                </mat-chip-option>
+            </mat-chip-listbox>
+        </div>
+
+        <!-- Filtros personalizados -->
+        <form [formGroup]="filterForm" class="filtros-form">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha Inicio</mat-label>
+                <input matInput [matDatepicker]="pickerStart" formControlName="startDate">
+                <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                <mat-datepicker #pickerStart></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha Fin</mat-label>
+                <input matInput [matDatepicker]="pickerEnd" formControlName="endDate">
+                <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                <mat-datepicker #pickerEnd></mat-datepicker>
+            </mat-form-field>
+
+            <div class="filtros-actions">
+                <button mat-raised-button color="primary" (click)="aplicarFiltros()">
+                    <mat-icon>search</mat-icon>
+                    Buscar
+                </button>
+                <button mat-button (click)="limpiarFiltros()">
+                    <mat-icon>clear</mat-icon>
+                    Limpiar
+                </button>
+                <button mat-stroked-button (click)="exportarExcel()">
+                    <mat-icon>download</mat-icon>
+                    Exportar
+                </button>
+            </div>
+        </form>
+    </mat-card>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading-container">
+        <mat-spinner diameter="60"></mat-spinner>
+        <p>Cargando asistencias...</p>
+    </div>
+
+    <!-- Tabla de Asistencias -->
+    <mat-card class="tabla-card" *ngIf="!loading">
+        <div class="tabla-header">
+            <h3 class="card-title">
+                <mat-icon>list</mat-icon>
+                Historial de Asistencias
+            </h3>
+            <span class="total-registros">{{ totalElements }} registro(s)</span>
+        </div>
+        <mat-divider></mat-divider>
+
+        <!-- Sin resultados -->
+        <div *ngIf="asistencias.length === 0" class="sin-resultados">
+            <mat-icon>inbox</mat-icon>
+            <p>No se encontraron registros de asistencia</p>
+            <button mat-raised-button color="primary" (click)="volverAMarcar()">
+                Marcar Asistencia
+            </button>
+        </div>
+
+        <!-- Tabla -->
+        <div class="tabla-wrapper" *ngIf="asistencias.length > 0">
+            <table mat-table [dataSource]="asistencias" class="asistencias-table">
+
+                <!-- Columna Fecha -->
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                    <td mat-cell *matCellDef="let asistencia">
+                        <div class="fecha-cell">
+                            <span class="dia-semana">{{ getDiaSemana(asistencia.fecha) }}</span>
+                            <span class="fecha-completa">{{ formatFechaCompleta(asistencia.fecha) }}</span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Columna Entrada -->
+                <ng-container matColumnDef="entrada">
+                    <th mat-header-cell *matHeaderCellDef>Entrada</th>
+                    <td mat-cell *matCellDef="let asistencia">
+                        <div class="hora-cell entrada" *ngIf="asistencia.horaEntrada">
+                            <mat-icon>login</mat-icon>
+                            <span>{{ formatHora(asistencia.horaEntrada) }}</span>
+                        </div>
+                        <span class="hora-vacia" *ngIf="!asistencia.horaEntrada">-</span>
+                    </td>
+                </ng-container>
+
+                <!-- Columna Salida -->
+                <ng-container matColumnDef="salida">
+                    <th mat-header-cell *matHeaderCellDef>Salida</th>
+                    <td mat-cell *matCellDef="let asistencia">
+                        <div class="hora-cell salida" *ngIf="asistencia.horaSalida">
+                            <mat-icon>logout</mat-icon>
+                            <span>{{ formatHora(asistencia.horaSalida) }}</span>
+                        </div>
+                        <span class="hora-vacia" *ngIf="!asistencia.horaSalida">-</span>
+                    </td>
+                </ng-container>
+
+                <!-- Columna Horas -->
+                <ng-container matColumnDef="horas">
+                    <th mat-header-cell *matHeaderCellDef>Horas Trabajadas</th>
+                    <td mat-cell *matCellDef="let asistencia">
+                        <span class="horas-value" *ngIf="asistencia.horasTrabajadas">
+                            {{ formatHorasTrabajadas(asistencia.horasTrabajadas) }}
+                        </span>
+                        <span class="hora-vacia" *ngIf="!asistencia.horasTrabajadas">-</span>
+                    </td>
+                </ng-container>
+
+                <!-- Columna Estado -->
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef>Estado</th>
+                    <td mat-cell *matCellDef="let asistencia">
+                        <mat-chip [class]="getEstadoAsistencia(asistencia).class">
+                            <mat-icon>{{ getEstadoAsistencia(asistencia).icon }}</mat-icon>
+                            {{ getEstadoAsistencia(asistencia).text }}
+                        </mat-chip>
+                    </td>
+                </ng-container>
+
+                <!-- Columna Acciones -->
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                    <td mat-cell *matCellDef="let asistencia">
+                        <button mat-icon-button [matTooltip]="'Ver detalle'" (click)="verDetalle(asistencia)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <!-- Paginador -->
+            <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                [pageIndex]="pageIndex" (page)="onPageChange($event)" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </mat-card>
+
+</div>

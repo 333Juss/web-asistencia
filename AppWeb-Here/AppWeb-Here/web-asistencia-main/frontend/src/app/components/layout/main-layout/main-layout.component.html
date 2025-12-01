@@ -1,0 +1,21 @@
+<div class="main-layout">
+    <app-header (toggleSidebar)="drawer.toggle()"></app-header>
+
+    <mat-sidenav-container class="sidenav-container">
+        <!-- Sidebar -->
+        <mat-sidenav #drawer [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)"
+            class="sidenav">
+            <app-sidebar (closeSidebar)="drawer.close()"></app-sidebar>
+        </mat-sidenav>
+
+        <!-- Main Content -->
+        <mat-sidenav-content class="sidenav-content">
+            <div class="content-wrapper">
+                <main class="main-content">
+                    <router-outlet></router-outlet>
+                </main>
+                <app-footer></app-footer>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

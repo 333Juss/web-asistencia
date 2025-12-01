@@ -1,0 +1,18 @@
+package com.example.asistencia.service.impl;
+
+import com.example.asistencia.service.FileStorageService;
+import org.springframework.stereotype.Service;
+
+// Esta clase ya no es necesaria porque FileStorageService es una clase concreta con @Service,
+// pero si la arquitectura espera una implementación, aquí estaría.
+// Sin embargo, como FileStorageService ya tiene la lógica, y AsistenciaServiceImpl usa FileStorageService,
+// esta clase vacía causaba confusión o conflictos si se escaneaba.
+// La he eliminado en el paso anterior.
+// PERO, si el usuario la necesita por alguna razón de inyección de dependencias (si FileStorageService fuera interfaz),
+// debería implementarla.
+// Revisando el código de FileStorageService (paso 365), es una CLASE CONCRETA con @Service.
+// Por lo tanto, NO NECESITAMOS FileStorageServiceImpl.
+// El error 500 NO ES por falta de esta clase, sino probablemente por otra cosa.
+// O tal vez AsistenciaServiceImpl está importando la clase incorrecta?
+
+// Revisemos AsistenciaServiceImpl imports.

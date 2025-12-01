@@ -1,0 +1,116 @@
+<div class="form-container">
+  <mat-card class="form-card">
+    <!-- Header -->
+    <mat-card-header>
+      <div class="header-content">
+        <button mat-icon-button (click)="cancel()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div class="header-title">
+          <mat-card-title>
+            {{ isEditMode ? 'Editar Turno' : 'Crear Nuevo Turno' }}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{ isEditMode
+            ? 'Actualiza el horario y estado del turno'
+            : 'Define el nombre y horario del nuevo turno' }}
+          </mat-card-subtitle>
+        </div>
+      </div>
+    </mat-card-header>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Cargando datos...</p>
+    </div>
+
+    <mat-card-content *ngIf="!loading">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <!-- Datos del turno -->
+        <div class="section">
+          <h3 class="section-title">
+            <mat-icon>schedule</mat-icon>
+            Datos del Turno
+          </h3>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field full-width">
+              <mat-label>Nombre del turno</mat-label>
+              <input
+                matInput
+                formControlName="nombre"
+                placeholder="Turno mañana"
+              />
+              <mat-error *ngIf="form.get('nombre')?.touched && form.get('nombre')?.invalid">
+                El nombre es obligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Hora de inicio</mat-label>
+              <input
+                matInput
+                type="time"
+                formControlName="horaInicio"
+              />
+              <mat-error *ngIf="form.get('horaInicio')?.touched && form.get('horaInicio')?.invalid">
+                La hora de inicio es obligatoria
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Hora de fin</mat-label>
+              <input
+                matInput
+                type="time"
+                formControlName="horaFin"
+              />
+              <mat-error *ngIf="form.get('horaFin')?.touched && form.get('horaFin')?.invalid">
+                La hora de fin es obligatoria
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Tolerancia (minutos)</mat-label>
+              <input matInput type="number" formControlName="toleranciaMinutos" min="0" />
+            </mat-form-field>
+          </div>
+
+
+          <div class="form-row">
+            <div class="checkbox-wrapper">
+              <mat-checkbox formControlName="activo">
+                Turno activo
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="form-actions">
+          <button
+            mat-button
+            type="button"
+            (click)="cancel()"
+            [disabled]="submitting"
+          >
+            Cancelar
+          </button>
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="submitting || form.invalid"
+          >
+            <mat-icon *ngIf="!submitting">save</mat-icon>
+            <mat-spinner *ngIf="submitting" diameter="20"></mat-spinner>
+            {{ submitting ? 'Guardando...' : (isEditMode ? 'Actualizar Turno' : 'Guardar Turno') }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

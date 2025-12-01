@@ -1,0 +1,14 @@
+{
+  "name": "whatsapp-service",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.0.0",
+    "express": "^4.19.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}

@@ -1,0 +1,69 @@
+<div class="detail-container">
+  <div class="header-actions">
+    <button mat-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Volver
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Cargando información...</p>
+  </div>
+
+  <div *ngIf="!loading && turno" class="content-grid">
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>calendar_month</mat-icon>
+        <mat-card-title>{{ turno.nombre }}</mat-card-title>
+        <mat-card-subtitle>Detalle del turno</mat-card-subtitle>
+
+        <div class="status-badge">
+          <mat-chip
+            [class.chip-success]="turno.activo"
+            [class.chip-error]="!turno.activo"
+          >
+            {{ turno.activo ? 'Activo' : 'Inactivo' }}
+          </mat-chip>
+        </div>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="info-list">
+          <div class="info-item">
+            <span class="label">ID:</span>
+            <span class="value">{{ turno.id }}</span>
+          </div>
+
+          <div class="info-item">
+            <span class="label">Nombre del turno:</span>
+            <span class="value">{{ turno.nombre }}</span>
+          </div>
+
+          <div class="info-item">
+            <span class="label">Horario:</span>
+            <span class="value">
+              {{ turno.horaInicio }} - {{ turno.horaFin }}
+            </span>
+          </div>
+
+          <div class="info-item">
+            <span class="label">Estado:</span>
+            <span class="value">
+              {{ turno.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="actions">
+          <button mat-raised-button color="primary" (click)="editTurno()">
+            <mat-icon>edit</mat-icon>
+            Editar Turno
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

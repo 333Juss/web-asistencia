@@ -1,0 +1,35 @@
+.tabla-wrapper {
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  background: white;
+}
+
+.mat-mdc-header-row, .mat-mdc-row {
+  height: 45px;
+}
+
+.estado-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.estado-badge.pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.estado-badge.aprobada {
+  background: #d4edda;
+  color: #155724;
+}
+
+.estado-badge.rechazada {
+  background: #f8d7da;
+  color: #721c24;
+}

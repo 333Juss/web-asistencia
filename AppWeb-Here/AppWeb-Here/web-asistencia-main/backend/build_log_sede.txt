@@ -1,0 +1,128 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< com.example:asistencia >-----------------------
+[INFO] Building asistencia 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ asistencia ---
+[INFO] Deleting C:\Users\jeffe\OneDrive\Escritorio\AppWeb-Here\web-asistencia-main\backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ asistencia ---
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] Copying 12 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ asistencia ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 142 source files with javac [debug parameters release 17] to target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,82] <identifier> expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,83] illegal start of type
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,88] <identifier> expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,123] <identifier> expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,126] <identifier> expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,127] ';' expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,136] illegal start of type
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,147] <identifier> expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[81,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[84,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[88,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[94,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[96,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[102,13] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[108,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[124,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[125,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[129,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[132,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[134,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[137,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[140,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[143,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[146,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[150,13] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[152,13] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[153,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[157,13] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[159,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[162,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[165,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[169,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[171,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[172,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[173,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[177,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[179,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[180,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[181,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[185,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[187,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[191,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[193,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[197,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[199,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[200,5] class, interface, enum, or record expected
+[INFO] 46 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.775 s
+[INFO] Finished at: 2025-11-27T11:25:25-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.0:compile (default-compile) on project asistencia: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,82] <identifier> expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,83] illegal start of type
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,88] <identifier> expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,123] <identifier> expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,126] <identifier> expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,127] ';' expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,136] illegal start of type
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[76,147] <identifier> expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[81,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[84,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[88,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[94,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[96,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[102,13] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[108,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[124,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[125,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[129,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[132,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[134,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[137,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[140,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[143,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[146,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[150,13] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[152,13] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[153,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[157,13] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[159,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[162,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[165,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[169,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[171,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[172,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[173,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[177,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[179,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[180,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[181,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[185,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[187,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[191,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[193,5] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[197,12] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[199,9] class, interface, enum, or record expected
+[ERROR] /C:/Users/jeffe/OneDrive/Escritorio/AppWeb-Here/web-asistencia-main/backend/src/main/java/com/example/asistencia/service/impl/SedeServiceImpl.java:[200,5] class, interface, enum, or record expected
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

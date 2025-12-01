@@ -1,0 +1,47 @@
+@use 'styles/variables' as *;
+
+.dialog-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+
+  h2 {
+    margin: 0 0 16px 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: $primary-color;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+
+    button {
+      min-width: 120px;
+    }
+  }
+}
+
+/* Input de horas */
+::ng-deep input[type="time"] {
+  font-size: 15px;
+  padding: 6px;
+}
+
+/* Opcional: borde cuando es inválido */
+mat-form-field.mat-form-field-invalid .mat-input-element {
+  border-bottom: 2px solid $error !important;
+}

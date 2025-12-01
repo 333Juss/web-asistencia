@@ -1,0 +1,99 @@
+<div class="container">
+  <h2>Mis Inasistencias</h2>
+
+  <table mat-table [dataSource]="inasistencias" class="mat-elevation-z2 full-width">
+
+    <!-- Fecha -->
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef> Fecha </th>
+      <td mat-cell *matCellDef="let i">
+        {{ i.fecha }}
+      </td>
+    </ng-container>
+
+    <!-- Turno -->
+    <ng-container matColumnDef="turno">
+      <th mat-header-cell *matHeaderCellDef> Turno </th>
+      <td mat-cell *matCellDef="let i">
+        {{ i.turno }}
+      </td>
+    </ng-container>
+
+    <!-- Estado asistencia -->
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let i">
+
+        <span
+          [ngClass]="{
+            'text-red': i.estadoAsistencia === 'FALTA',
+            'text-orange': i.estadoAsistencia === 'PENDIENTE_JUSTIFICACION',
+            'text-green': i.estadoAsistencia === 'JUSTIFICADA'
+          }"
+        >
+          {{ i.estadoAsistencia }}
+        </span>
+
+      </td>
+    </ng-container>
+
+    <!-- Estado justificación -->
+    <ng-container matColumnDef="justificacion">
+      <th mat-header-cell *matHeaderCellDef> Justificación </th>
+      <td mat-cell *matCellDef="let i">
+
+        <span *ngIf="!i.estadoJustificacion" class="text-red">
+          No enviada
+        </span>
+
+        <span *ngIf="i.estadoJustificacion === 'PENDIENTE'" class="text-orange">
+          Pendiente
+        </span>
+
+        <span *ngIf="i.estadoJustificacion === 'APROBADA'" class="text-green">
+          Aprobada
+        </span>
+
+        <span *ngIf="i.estadoJustificacion === 'RECHAZADA'" class="text-red">
+          Rechazada
+        </span>
+
+      </td>
+    </ng-container>
+
+    <!-- Acción -->
+    <ng-container matColumnDef="accion">
+      <th mat-header-cell *matHeaderCellDef> Acción </th>
+      <td mat-cell *matCellDef="let i">
+
+        <!-- Solo si aún NO se envió (porque estadoJustificacion = null) -->
+        <button
+          mat-button
+          color="primary"
+          *ngIf="!i.estadoJustificacion"
+          (click)="abrirModal(i)"
+        >
+          Justificar
+        </button>
+
+        <span *ngIf="i.estadoJustificacion === 'PENDIENTE'">
+          En revisión
+        </span>
+
+        <span *ngIf="i.estadoJustificacion === 'APROBADA'">
+          ✔ Justificada
+        </span>
+
+        <span *ngIf="i.estadoJustificacion === 'RECHAZADA'" class="text-red">
+          Rechazada
+        </span>
+
+      </td>
+    </ng-container>
+
+    <!-- Render de headers y rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+  </table>
+</div>

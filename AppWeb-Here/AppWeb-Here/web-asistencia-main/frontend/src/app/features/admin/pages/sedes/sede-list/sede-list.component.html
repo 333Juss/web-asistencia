@@ -1,0 +1,174 @@
+<div class="list-container">
+    <!-- Header -->
+    <div class="list-header">
+        <div class="header-left">
+            <h2 class="page-title">
+                <mat-icon>store</mat-icon>
+                Sedes
+            </h2>
+            <p class="page-subtitle">Gestiona las ubicaciones y configuración de tus sedes</p>
+        </div>
+        <div class="header-right">
+            <button mat-raised-button color="primary" (click)="addSede()">
+                <mat-icon>add</mat-icon>
+                Nueva Sede
+            </button>
+        </div>
+    </div>
+
+    <!-- Filters Card -->
+    <mat-card class="filters-card">
+        <div class="filters-content">
+            <!-- Search -->
+            <mat-form-field appearance="outline" class="search-field">
+                <mat-label>Buscar</mat-label>
+                <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearch($event)"
+                    placeholder="Código, nombre, dirección...">
+                <mat-icon matPrefix>search</mat-icon>
+                <button mat-icon-button matSuffix *ngIf="searchTerm" (click)="clearFilters()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <!-- Actions -->
+            <div class="filter-actions">
+                <button mat-icon-button (click)="loadSedes()" matTooltip="Recargar">
+                    <mat-icon>refresh</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-card>
+
+    <!-- Table Card -->
+    <mat-card class="table-card">
+        <!-- Loading -->
+        <div *ngIf="loading" class="loading-overlay">
+            <mat-spinner diameter="40"></mat-spinner>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange()" class="sedes-table">
+
+                <!-- Código Column -->
+                <ng-container matColumnDef="codigo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Código</th>
+                    <td mat-cell *matCellDef="let sede">
+                        <span class="codigo-badge">{{ sede.codigo }}</span>
+                    </td>
+                </ng-container>
+
+                <!-- Nombre Column -->
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                    <td mat-cell *matCellDef="let sede">
+                        <div class="name-cell">
+                            <mat-icon class="store-icon">store</mat-icon>
+                            <span class="name-text">{{ sede.nombre }}</span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Dirección Column -->
+                <ng-container matColumnDef="direccion">
+                    <th mat-header-cell *matHeaderCellDef>Dirección</th>
+                    <td mat-cell *matCellDef="let sede">{{ sede.direccion || '-' }}</td>
+                </ng-container>
+
+                <!-- Ubicación Column -->
+                <ng-container matColumnDef="ubicacion">
+                    <th mat-header-cell *matHeaderCellDef>Ubicación GPS</th>
+                    <td mat-cell *matCellDef="let sede">
+                        <div class="location-cell">
+                            <mat-icon [class.configured]="sede.latitud && sede.longitud">
+                                {{ sede.latitud && sede.longitud ? 'location_on' : 'location_off' }}
+                            </mat-icon>
+                            <span>{{ formatCoordinates(sede.latitud, sede.longitud) }}</span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Radio Column -->
+                <ng-container matColumnDef="radio">
+                    <th mat-header-cell *matHeaderCellDef>Radio</th>
+                    <td mat-cell *matCellDef="let sede">
+                        <span class="radio-badge">{{ sede.radioMetros }}m</span>
+                    </td>
+                </ng-container>
+
+                <!-- Empleados Column -->
+                <ng-container matColumnDef="empleados">
+                    <th mat-header-cell *matHeaderCellDef>Empleados</th>
+                    <td mat-cell *matCellDef="let sede">
+                        <mat-chip class="chip-info">
+                            <mat-icon>people</mat-icon>
+                            {{ sede.cantidadEmpleados || 0 }}
+                        </mat-chip>
+                    </td>
+                </ng-container>
+
+                <!-- Estado Column -->
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef>Estado</th>
+                    <td mat-cell *matCellDef="let sede">
+                        <mat-chip [class.chip-success]="sede.activo" [class.chip-error]="!sede.activo">
+                            {{ sede.activo ? 'Activo' : 'Inactivo' }}
+                        </mat-chip>
+                    </td>
+                </ng-container>
+
+                <!-- Acciones Column -->
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                    <td mat-cell *matCellDef="let sede">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="viewSede(sede.id)">
+                                <mat-icon>visibility</mat-icon>
+                                <span>Ver detalle</span>
+                            </button>
+                            <button mat-menu-item (click)="editSede(sede.id)">
+                                <mat-icon>edit</mat-icon>
+                                <span>Editar</span>
+                            </button>
+                            <button mat-menu-item (click)="toggleStatus(sede)">
+                                <mat-icon>{{ sede.activo ? 'block' : 'check_circle' }}</mat-icon>
+                                <span>{{ sede.activo ? 'Desactivar' : 'Activar' }}</span>
+                            </button>
+                            <mat-divider></mat-divider>
+                            <button mat-menu-item (click)="deleteSede(sede)" class="delete-option">
+                                <mat-icon>delete</mat-icon>
+                                <span>Eliminar</span>
+                            </button>
+                        </mat-menu>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"
+                    (click)="viewSede(row.id)"></tr>
+
+                <!-- No data -->
+                <tr class="mat-row no-data-row" *matNoDataRow>
+                    <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                        <div class="no-data">
+                            <mat-icon>store</mat-icon>
+                            <p>No se encontraron sedes</p>
+                            <button mat-stroked-button (click)="addSede()">
+                                <mat-icon>add</mat-icon>
+                                Agregar primera sede
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Paginator -->
+        <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 50]"
+            (page)="onPageChange($event)" showFirstLastButtons>
+        </mat-paginator>
+    </mat-card>
+</div>

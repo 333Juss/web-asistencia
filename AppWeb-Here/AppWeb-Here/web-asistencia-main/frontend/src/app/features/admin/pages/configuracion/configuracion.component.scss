@@ -1,0 +1,54 @@
+.config-container {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.header p {
+    margin: 4px 0 0;
+    color: #666;
+}
+
+.config-card {
+    margin-bottom: 24px;
+}
+
+mat-card-header {
+    margin-bottom: 16px;
+}
+
+mat-card-title {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    margin-bottom: 48px;
+}
+
+button[type="submit"] {
+    padding: 8px 24px;
+}

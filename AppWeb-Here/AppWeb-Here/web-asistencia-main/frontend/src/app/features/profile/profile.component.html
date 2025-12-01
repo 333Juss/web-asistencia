@@ -1,0 +1,53 @@
+<div class="profile-container">
+    <mat-card class="profile-card">
+        <mat-card-header>
+            <div mat-card-avatar class="profile-header-image">
+                <mat-icon>account_circle</mat-icon>
+            </div>
+            <mat-card-title>Mi Perfil</mat-card-title>
+            <mat-card-subtitle *ngIf="user$ | async as user">{{ getRolLabel(user.rol) }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div class="profile-info" *ngIf="colaborador$ | async as colaborador; else noColaborador">
+                <div class="info-item">
+                    <span class="label">Nombre Completo:</span>
+                    <span class="value">{{ colaborador.nombres }} {{ colaborador.apellidos }}</span>
+                </div>
+                <mat-divider></mat-divider>
+
+                <div class="info-item">
+                    <span class="label">DNI:</span>
+                    <span class="value">{{ colaborador.dni }}</span>
+                </div>
+                <mat-divider></mat-divider>
+
+                <div class="info-item">
+                    <span class="label">Email:</span>
+                    <span class="value">{{ colaborador.email }}</span>
+                </div>
+                <mat-divider></mat-divider>
+
+                <div class="info-item">
+                    <span class="label">Cargo:</span>
+                    <span class="value">{{ colaborador.cargo || 'No especificado' }}</span>
+                </div>
+                <mat-divider></mat-divider>
+
+                <div class="info-item">
+                    <span class="label">Sede:</span>
+                    <span class="value">{{ colaborador.sede?.nombre || 'Sin sede asignada' }}</span>
+                </div>
+            </div>
+
+            <ng-template #noColaborador>
+                <div class="profile-info" *ngIf="user$ | async as user">
+                    <div class="info-item">
+                        <span class="label">Usuario:</span>
+                        <span class="value">{{ user.username }}</span>
+                    </div>
+                </div>
+            </ng-template>
+        </mat-card-content>
+    </mat-card>
+</div>

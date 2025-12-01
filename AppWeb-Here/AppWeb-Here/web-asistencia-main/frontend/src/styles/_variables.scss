@@ -1,0 +1,46 @@
+// Colores principales
+$primary-color: #6C5CE7;
+$accent-color: #00B894;
+$warn-color: #D63031;
+
+// Colores de estado
+$success: #00B894;
+$error: #D63031;
+$warning: #FDCB6E;
+$info: #74B9FF;
+
+// Colores de texto
+$text-primary: #2D3436;
+$text-secondary: #636E72;
+$text-disabled: #B2BEC3;
+
+// Colores de fondo
+$background-light: #F5F6FA;
+$background-dark: #2D3436;
+
+// Sombras
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+
+// Transiciones
+$transition-fast: 0.2s ease-in-out;
+$transition-normal: 0.3s ease-in-out;
+$transition-slow: 0.5s ease-in-out;
+
+// Breakpoints
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 1024px;
+$breakpoint-lg: 1280px;
+$breakpoint-xl: 1440px;
+
+// Espaciado
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+$warning: #FDCB6E;
+$warning-dark: #e6b55e;

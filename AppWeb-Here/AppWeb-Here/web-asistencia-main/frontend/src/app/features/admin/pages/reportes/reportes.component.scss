@@ -1,0 +1,72 @@
+.reports-container {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .header {
+        margin-bottom: 24px;
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+        p {
+            margin: 8px 0 0;
+            color: #666;
+        }
+    }
+
+    .filter-card {
+        margin-bottom: 24px;
+        padding: 16px;
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            align-items: center;
+
+            button {
+                height: 56px;
+            }
+        }
+    }
+
+    .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 48px;
+        
+        p {
+            margin-top: 16px;
+            color: #666;
+        }
+    }
+
+    .table-card {
+        overflow: hidden;
+        
+        table {
+            width: 100%;
+        }
+    }
+
+    .no-data {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 48px;
+        color: #666;
+
+        mat-icon {
+            font-size: 48px;
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            color: #ccc;
+        }
+    }
+}

@@ -1,0 +1,61 @@
+<h2>Justificaciones</h2>
+
+<table mat-table [dataSource]="justificaciones" class="mat-elevation-z2">
+
+  <!-- COLABORADOR -->
+  <ng-container matColumnDef="colaborador">
+    <th mat-header-cell *matHeaderCellDef> Colaborador </th>
+    <td mat-cell *matCellDef="let j">
+      {{ j.nombres }} {{ j.apellidos }}
+    </td>
+  </ng-container>
+
+  <!-- FECHA -->
+  <ng-container matColumnDef="fecha">
+    <th mat-header-cell *matHeaderCellDef> Fecha </th>
+    <td mat-cell *matCellDef="let j">
+      {{ j.fechaFalta }}
+    </td>
+  </ng-container>
+
+  <!-- MOTIVO -->
+  <ng-container matColumnDef="motivo">
+    <th mat-header-cell *matHeaderCellDef> Motivo </th>
+    <td mat-cell *matCellDef="let j">
+      {{ j.motivo }}
+    </td>
+  </ng-container>
+
+  <!-- ESTADO -->
+  <ng-container matColumnDef="estado">
+    <th mat-header-cell *matHeaderCellDef> Estado </th>
+    <td mat-cell *matCellDef="let j">
+    <span
+      class="estado-badge"
+      [ngClass]="{
+        'pendiente': j.estado === 'PENDIENTE',
+        'aprobada': j.estado === 'APROBADA',
+        'rechazada': j.estado === 'RECHAZADA'
+      }"
+    >
+      {{ j.estado }}
+    </span>
+    </td>
+  </ng-container>
+
+  <!-- ACCIONES -->
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let j">
+      <button mat-button
+              *ngIf="j.estado === 'PENDIENTE'"
+              (click)="revisar(j)">
+        Revisar
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>

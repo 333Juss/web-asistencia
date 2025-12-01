@@ -1,0 +1,74 @@
+<div class="detail-container">
+    <div class="header-actions">
+        <button mat-button (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+            Volver
+        </button>
+    </div>
+
+    <div *ngIf="loading" class="loading-container">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Cargando información...</p>
+    </div>
+
+    <div *ngIf="!loading && sede" class="content-grid">
+        <!-- Información General -->
+        <mat-card class="info-card">
+            <mat-card-header>
+                <mat-icon mat-card-avatar>store</mat-icon>
+                <mat-card-title>{{ sede.nombre }}</mat-card-title>
+                <mat-card-subtitle>{{ sede.codigo }}</mat-card-subtitle>
+                <div class="status-badge">
+                    <mat-chip [class.chip-success]="sede.activo" [class.chip-error]="!sede.activo">
+                        {{ sede.activo ? 'Activo' : 'Inactivo' }}
+                    </mat-chip>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="label">Dirección:</span>
+                        <span class="value">{{ sede.direccion || 'No registrada' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Ubicación:</span>
+                        <span class="value">
+                            {{ sede.distrito }}, {{ sede.provincia }}, {{ sede.departamento }}
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Empleados:</span>
+                        <span class="value">{{ sede.cantidadEmpleados || 0 }} asignados</span>
+                    </div>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div class="actions">
+                    <button mat-raised-button color="primary" (click)="editSede()">
+                        <mat-icon>edit</mat-icon>
+                        Editar Sede
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Mapa y Configuración -->
+        <mat-card class="map-card">
+            <mat-card-header>
+                <mat-card-title>Configuración de Ubicación</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="geo-info">
+                    <div class="geo-item">
+                        <mat-icon>my_location</mat-icon>
+                        <div>
+                            <span class="label">Coordenadas</span>
+                            <span class="value">{{ formatCoordinates(sede.latitud, sede.longitud) }}</span>
+                        </div>
+                    </div>
+                    <div class="geo-item">
+                        <mat-icon>radar</mat-icon>
+                        <div>
+                        </div>
+                    </div>

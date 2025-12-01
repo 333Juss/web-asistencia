@@ -1,0 +1,38 @@
+.settings-container {
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+
+    .settings-card {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .settings-header-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #e3f2fd;
+
+        mat-icon {
+            color: #1976d2;
+        }
+    }
+
+    form {
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 16px;
+    }
+}

@@ -1,0 +1,63 @@
+<div class="settings-container">
+    <mat-card class="settings-card">
+        <mat-card-header>
+            <div mat-card-avatar class="settings-header-icon">
+                <mat-icon>lock</mat-icon>
+            </div>
+            <mat-card-title>Configuración de Seguridad</mat-card-title>
+            <mat-card-subtitle>Cambiar contraseña</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
+
+                <!-- Contraseña Actual -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Contraseña Actual</mat-label>
+                    <input matInput [type]="hideOld ? 'password' : 'text'" formControlName="oldPassword">
+                    <button mat-icon-button matSuffix (click)="hideOld = !hideOld" type="button">
+                        <mat-icon>{{hideOld ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="passwordForm.get('oldPassword')?.hasError('required')">
+                        La contraseña actual es requerida
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Nueva Contraseña -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Nueva Contraseña</mat-label>
+                    <input matInput [type]="hideNew ? 'password' : 'text'" formControlName="newPassword">
+                    <button mat-icon-button matSuffix (click)="hideNew = !hideNew" type="button">
+                        <mat-icon>{{hideNew ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('required')">
+                        La nueva contraseña es requerida
+                    </mat-error>
+                    <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('minlength')">
+                        Debe tener al menos 6 caracteres
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Confirmar Contraseña -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Confirmar Nueva Contraseña</mat-label>
+                    <input matInput [type]="hideConfirm ? 'password' : 'text'" formControlName="confirmPassword">
+                    <button mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm" type="button">
+                        <mat-icon>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="passwordForm.hasError('mismatch')">
+                        Las contraseñas no coinciden
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="actions">
+                    <button mat-raised-button color="primary" type="submit"
+                        [disabled]="passwordForm.invalid || loading">
+                        <mat-icon>save</mat-icon>
+                        {{ loading ? 'Guardando...' : 'Cambiar Contraseña' }}
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

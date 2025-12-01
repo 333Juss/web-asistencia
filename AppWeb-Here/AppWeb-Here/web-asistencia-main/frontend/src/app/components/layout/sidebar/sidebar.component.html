@@ -1,0 +1,29 @@
+<div class="sidebar-container">
+    <!-- Sidebar Header -->
+    <div class="sidebar-header">
+        <h2 class="sidebar-title">Menú</h2>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Navigation Menu -->
+    <mat-nav-list class="sidebar-menu">
+        <ng-container *ngIf="currentUser$ | async as user">
+            <a mat-list-item *ngFor="let item of getFilteredMenuItems(user)" [routerLink]="item.route"
+                routerLinkActive="active-link" (click)="onMenuItemClick()" class="menu-item">
+                <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+                <span matListItemTitle>{{ item.label }}</span>
+                <span *ngIf="item.badge" matListItemMeta class="badge">{{ item.badge }}</span>
+            </a>
+        </ng-container>
+    </mat-nav-list>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+        <mat-divider></mat-divider>
+        <div class="footer-content">
+            <p class="app-version">HERE v1.0.0</p>
+            <p class="copyright">© 2025 All rights reserved</p>
+        </div>
+    </div>
+</div>

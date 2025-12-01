@@ -1,0 +1,22 @@
+@use 'variables';
+
+// Si quieres tema custom de Material, descomenta esto y elimina indigo-pink.css de angular.json:
+// @use '@angular/material' as mat;
+// @include mat.core();
+// ... tu configuración de tema
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: #f5f5f5;
+}

@@ -1,0 +1,107 @@
+# ===================================
+# GITIGNORE para AppWeb-Here
+# ===================================
+
+# ============ BACKEND (Java/Spring Boot) ============
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/.idea/
+backend/*.iml
+backend/*.iws
+backend/*.ipr
+backend/.settings/
+backend/.classpath
+backend/.project
+backend/.factorypath
+backend/bin/
+
+# ============ FRONTEND (Angular) ============
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.cache/
+frontend/.vscode/
+frontend/.idea/
+
+# Build artifacts
+frontend/*.js.map
+frontend/*.css.map
+
+# ============ BASE DE DATOS ============
+*.db
+*.sqlite
+*.sql.bak
+
+# ============ ARCHIVOS DE CONFIGURACIÓN LOCAL ============
+# Archivo de configuración local (descomentar si lo usas)
+# backend/src/main/resources/application-local.yml
+# backend/src/main/resources/application-local.properties
+
+# ============ ARCHIVOS SUBIDOS ============
+backend/uploads/
+backend/uploads/biometric/
+backend/uploads/attendance/
+uploads/
+
+# ============ LOGS ============
+*.log
+logs/
+backend/logs/
+frontend/logs/
+
+# ============ SISTEMA OPERATIVO ============
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# ============ IDEs ============
+# VSCode
+.vscode/
+*.code-workspace
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.settings/
+.classpath
+.project
+
+# NetBeans
+nbproject/
+
+# ============ SEGURIDAD ============
+# NO subir contraseñas, secrets, tokens
+*.env
+*.env.local
+*.env.production
+.env
+.env.local
+.env.production
+secrets.yml
+credentials.json
+*.key
+*.pem
+*.p12
+*.jks
+*.keystore
+
+# ============ TEMPORALES ============
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.cache/
+tmp/
+temp/

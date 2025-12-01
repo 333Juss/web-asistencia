@@ -1,0 +1,157 @@
+.detail-container {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .header-actions {
+        margin-bottom: 24px;
+    }
+
+    .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 300px;
+        gap: 16px;
+        color: #666;
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 24px;
+
+        @media (max-width: 960px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .info-card {
+        mat-card-header {
+            margin-bottom: 24px;
+            position: relative;
+
+            mat-icon {
+                font-size: 40px;
+                height: 40px;
+                width: 40px;
+                color: #3f51b5;
+            }
+
+            .status-badge {
+                position: absolute;
+                top: 0;
+                right: 0;
+
+                .chip-success {
+                    background-color: #e8f5e9;
+                    color: #2e7d32;
+                }
+
+                .chip-error {
+                    background-color: #ffebee;
+                    color: #c62828;
+                }
+            }
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+
+            .info-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 0;
+                border-bottom: 1px solid #f0f0f0;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .label {
+                    color: #666;
+                    font-weight: 500;
+                }
+
+                .value {
+                    color: #333;
+                    font-weight: 500;
+                    text-align: right;
+                }
+            }
+        }
+
+        .actions {
+            margin-top: 24px;
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+
+    .map-card {
+        .geo-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+
+            .geo-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px;
+                background-color: #f5f5f5;
+                border-radius: 8px;
+
+                mat-icon {
+                    color: #666;
+                }
+
+                div {
+                    display: flex;
+                    flex-direction: column;
+
+                    .label {
+                        font-size: 12px;
+                        color: #666;
+                    }
+
+                    .value {
+                        font-weight: 500;
+                        color: #333;
+                    }
+                }
+            }
+        }
+
+        .map-wrapper {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        .no-map {
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            color: #999;
+            gap: 16px;
+
+            mat-icon {
+                font-size: 48px;
+                height: 48px;
+                width: 48px;
+            }
+        }
+    }
+}
