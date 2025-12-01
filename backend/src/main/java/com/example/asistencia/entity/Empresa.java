@@ -1,3 +1,4 @@
+
 package com.example.asistencia.entity;
 import com.example.asistencia.entity.base.BaseEntity;
 import jakarta.persistence.*;
